@@ -1,5 +1,4 @@
 from rest_framework import viewsets
-from drf_multiple_model.viewsets import ObjectMultipleModelAPIViewSet
 
 from .models import Artist, Album, Genre, Track, Lyrics
 from .serializers import ArtistSerializer, AlbumSerializer, \
