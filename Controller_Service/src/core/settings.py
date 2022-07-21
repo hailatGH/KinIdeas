@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     'rest_framework',
     'corsheaders',
+    'drf_multiple_model',
 
     'music',
     'podcast',
