@@ -1,4 +1,5 @@
 from rest_framework import viewsets
+from drf_multiple_model.viewsets import ObjectMultipleModelAPIViewSet
 
 from .models import Artist, Album, Genre, Track, Lyrics
 from .serializers import ArtistSerializer, AlbumSerializer, \
@@ -30,3 +31,9 @@ class LyricsViewSet(viewsets.ModelViewSet):
     
     queryset = Lyrics.objects.all()
     serializer_class = LyricsSerializer
+
+class MusicPlayerAPIView(ObjectMultipleModelAPIViewSet):
+    querylist = [
+        {'queryset': Artist.objects.all(), 'serializer_class': ArtistSerializer},
+        {'queryset': Album.objects.filter(style='Sonnet'), 'serializer_class': AlbumSerializer},
+    ]
