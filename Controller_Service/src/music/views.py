@@ -35,5 +35,5 @@ class LyricsViewSet(viewsets.ModelViewSet):
 class MusicPlayerAPIView(ObjectMultipleModelAPIViewSet):
     querylist = [
         {'queryset': Artist.objects.all(), 'serializer_class': ArtistSerializer},
-        {'queryset': Album.objects.filter(style='Sonnet'), 'serializer_class': AlbumSerializer},
+        {'queryset': Album.objects.all(), 'serializer_class': AlbumSerializer},
     ]
