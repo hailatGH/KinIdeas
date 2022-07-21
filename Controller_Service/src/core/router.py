@@ -2,7 +2,8 @@ from rest_framework.routers import DefaultRouter
 
 from company_profile.views import CompanyProfileViewSet
 from music.views import ArtistViewSet, AlbumViewSet, GenreViewSet, \
-    TrackViewSet, LyricsViewSet, MusicPlayerAPIView
+    TrackViewSet, LyricsViewSet
+from music.musicplayer import MusicPlayerAPIView
 from podcast.views import HostViewSet, SeasonViewSet, \
     PodcastCategoryViewSet, EpisodeViewSet
 from radio.views import RadioViewSet
