@@ -19,6 +19,7 @@ class TrackSerializer(serializers.ModelSerializer):
             'track_file',
             'track_status',
             'track_release_date',
+            'artist_id',
             'album_id',
             'genre_id',
             'user_id',
@@ -44,7 +45,7 @@ class GenreSerializer(serializers.ModelSerializer):
         ]
 
 class AlbumSerializer(serializers.ModelSerializer):
-    tracks_a = TrackSerializer(many=True, required=False)
+    tracks_al = TrackSerializer(many=True, required=False)
 
     class Meta:
         model = Album
@@ -57,7 +58,7 @@ class AlbumSerializer(serializers.ModelSerializer):
             'user_id',
             'created_at',
             'updated_at',
-            'tracks_a',
+            'tracks_al',
         ]
 
 class ArtistSerializer(serializers.ModelSerializer):
