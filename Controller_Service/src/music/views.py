@@ -36,4 +36,7 @@ class MusicPlayerAPIView(ObjectMultipleModelAPIViewSet):
     querylist = [
         {'queryset': Artist.objects.all(), 'serializer_class': ArtistSerializer},
         {'queryset': Album.objects.all(), 'serializer_class': AlbumSerializer},
+        {'queryset': Genre.objects.all(), 'serializer_class': GenreSerializer},
+        {'queryset': Track.objects.all(), 'serializer_class': TrackSerializer},
+        {'queryset': Lyrics.objects.all(), 'serializer_class': LyricsSerializer},
     ]
