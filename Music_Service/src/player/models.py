@@ -5,19 +5,19 @@ from core import validators
 # Create your models here.
 
 def Artists_Profile_Images(instance, filename):
-    return '/'.join(['Artists_Profile_Images', str(instance.artist_name), filename])
+    return '/'.join(['Media_Files', 'Artists_Profile_Images', str(instance.artist_name), str(instance.artist_name + " - " + filename)])
     # The directory arrangment will be [media/Artists_Profile_Images/{artist_name}/{filename}]
 
 def Albums_Profile_Images(instance, filename):
-    return '/'.join(['Albums_Profile_Images', str(instance.album_title), filename])
+    return '/'.join(['Media_Files', 'Albums_Cover_Images', str(instance.artist_id), str(instance.album_title), str(instance.album_title + " - " + filename)])
     # The directory arrangment will be [media/Albums_Profile_Images/{album_title}/{filename}]
 
 def Genres_Cover_Images(instance, filename):
-    return '/'.join(['Genres_Cover_Images', str(instance.genre_title), filename])
+    return '/'.join(['Media_Files', 'Genres_Cover_Images', str(instance.genre_title), str(instance.genre_title + " - " + filename)])
     # The directory arrangment will be [media/Genres_Cover_Images/{genre_title}/{filename}]
 
 def Track_Files(instance, filename):
-    return '/'.join(['Track_Files', str(instance.track_name), filename])
+    return '/'.join(['Media_Files', 'Track_Files', str(instance.artist_id), str(instance.album_id), filename])
     # The directory arrangment will be [media/Track_Files/{track_name}/{filename}]
 
 class Artist(models.Model):

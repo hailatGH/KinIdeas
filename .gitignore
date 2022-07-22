@@ -1,6 +1,8 @@
 Controller_Service/
 
 Music_Service/venv_music
+Music_Service/src/media
+Music_Service/src/static
 Music_Service/src/db.sqlite3
 Music_Service/src/core/__pycache__
 Music_Service/src/player/__pycache__
