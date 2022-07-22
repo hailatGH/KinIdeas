@@ -5,15 +5,3 @@ Music_Service/src/db.sqlite3
 Music_Service/src/core/__pycache__
 Music_Service/src/player/__pycache__
 Music_Service/src/player/migrations/__pycache__
-
-Podcast_Player/podcast_player_env
-Podcast_Player/src/db.sqlite3
-Podcast_Player/src/core/__pycache__
-Podcast_Player/src/player/__pycache__
-Podcast_Player/src/player/migrations/__pycache__
-
-Radio_Player/radio_player_env
-Radio_Player/src/db.sqlite3
-Radio_Player/src/core/__pycache__
-Radio_Player/src/player/__pycache__
-Radio_Player/src/player/migrations/__pycache__
