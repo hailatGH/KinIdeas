@@ -30,7 +30,7 @@ class Artist(models.Model):
     artist_title = models.CharField(max_length=100, default=_("unknown"), null=False, blank=False)
     artist_cover = models.ImageField(upload_to=artists_cover_images, validators=[validators.validate_image_extension], height_field=None, width_field=None, max_length=1023, null=False, blank=False)
     artist_description = models.TextField(max_length=1023, blank=True, null=True)
-    user_id =  models.IntegerField(default=0)
+    user_id =  models.IntegerField(default=1)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -48,8 +48,8 @@ class Album(models.Model):
     album_title = models.CharField(max_length=100, default='Collections', null=False, blank= False)
     album_cover = models.ImageField(upload_to=albums_cover_images, validators=[validators.validate_image_extension], height_field=None, width_field=None, max_length=1023, null=False, blank=False)
     album_description = models.TextField(max_length=1023, blank=True, null=True)
-    artist_id = models.ForeignKey(Artist, default=0, related_name='albums', on_delete=models.DO_NOTHING)
-    user_id =  models.IntegerField(default=0)
+    artist_id = models.ForeignKey(Artist, default=1, related_name='albums', on_delete=models.DO_NOTHING)
+    user_id =  models.IntegerField(default=1)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
@@ -66,7 +66,7 @@ class Genre(models.Model):
     genre_title = models.CharField(max_length=100,default='Other',null=False , blank= False)
     genre_cover = models.ImageField(upload_to=genres_cover_images, validators=[validators.validate_image_extension], height_field=None, width_field=None, max_length=1023, null=False, blank=False)
     genre_description = models.TextField(blank=True, null=True, max_length=1023)
-    user_id =  models.IntegerField(default=0)
+    user_id =  models.IntegerField(default=1)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
@@ -88,7 +88,7 @@ class Track(models.Model):
     artist_id = models.ForeignKey(Artist, default=1, related_name='tracks_ar', on_delete=models.DO_NOTHING)
     album_id = models.ForeignKey(Album, default=1, related_name='tracks_al', on_delete=models.DO_NOTHING)
     genre_id = models.ForeignKey(Genre, default=1, related_name='tracks_g', on_delete=models.DO_NOTHING)
-    user_id =  models.IntegerField(default=0)
+    user_id =  models.IntegerField(default=1)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
@@ -104,8 +104,8 @@ class Lyrics(models.Model):
 
     lyrics_title = models.CharField(max_length=100,default='Other',null=False , blank= False)
     lyrics_detail = models.TextField(blank=True, null=True)
-    track_id = models.ForeignKey(Track, default=0, related_name='lyrics', on_delete=models.DO_NOTHING)
-    user_id =  models.IntegerField(default=0)
+    track_id = models.ForeignKey(Track, default=1, related_name='lyrics', on_delete=models.DO_NOTHING)
+    user_id =  models.IntegerField(default=1)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
