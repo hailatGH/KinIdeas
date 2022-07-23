@@ -1,5 +1,3 @@
-Controller_Service/
-
 Music_Service/venv_music
 Music_Service/src/media
 Music_Service/src/static
@@ -7,3 +5,19 @@ Music_Service/src/db.sqlite3
 Music_Service/src/core/__pycache__
 Music_Service/src/player/__pycache__
 Music_Service/src/player/migrations/__pycache__
+
+Podcast_Service/venv_podcast
+Podcast_Service/src/media
+Podcast_Service/src/static
+Podcast_Service/src/db.sqlite3
+Podcast_Service/src/core/__pycache__
+Podcast_Service/src/player/__pycache__
+Podcast_Service/src/player/migrations/__pycache__
+
+Radio_Service/venv_radio
+Radio_Service/src/media
+Radio_Service/src/static
+Radio_Service/src/db.sqlite3
+Radio_Service/src/core/__pycache__
+Radio_Service/src/player/__pycache__
+Radio_Service/src/player/migrations/__pycache__

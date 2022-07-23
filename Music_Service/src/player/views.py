@@ -1,9 +1,9 @@
 from rest_framework import viewsets
 from rest_framework.pagination import PageNumberPagination
 
-from .models import Artist, Album, Genre, Track, Lyrics
-from .serializers import ArtistSerializer, AlbumSerializer, GenreSerializer, LyricsSerializer, TrackSerializer, \
-    GenreSerializer, TrackSerializer, LyricsSerializer
+from .models import Artist, Album, Genre, Track, Lyrics, PlayList, FavouriteList
+from .serializers import ArtistSerializer, AlbumSerializer, GenreSerializer, TrackSerializer, \
+    LyricsSerializer, PlayListSerializer, FavouriteListSerializer
 
 # Pagination
 
@@ -42,4 +42,16 @@ class LyricsViewSet(viewsets.ModelViewSet):
     
     queryset = Lyrics.objects.all()
     serializer_class = LyricsSerializer
+    pagination_class = StandardResultsSetPagination
+
+class PlayListViewSet(viewsets.ModelViewSet):
+    
+    queryset = PlayList.objects.all()
+    serializer_class = PlayListSerializer
+    pagination_class = StandardResultsSetPagination
+
+class FavouriteListViewSet(viewsets.ModelViewSet):
+    
+    queryset = FavouriteList.objects.all()
+    serializer_class = FavouriteList
     pagination_class = StandardResultsSetPagination
