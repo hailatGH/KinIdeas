@@ -1,24 +1,24 @@
 from rest_framework import serializers
 
-from .models import Album, Artist, Track, Genre, Lyrics, PlayList, PlayListTracks, FavouriteList
+from .models import Album, Artist, Track, Genre, Lyrics, PlayList, PlayListTracks, Favourites
 
-class FavouriteListSerializer(serializers.ModelSerializer):
+class FavouritesSerializer(serializers.ModelSerializer):
     
     class Meta:
-        model = FavouriteList
+        model = Favourites
         fields = '__all__'
 
-class PlayListTracksSerializer(serializers.ModelSerializer):
+# class PlayListTracksSerializer(serializers.ModelSerializer):
 
-    class Meta:
-        model = PlayListTracks
-        fields = '__all__'
+#     class Meta:
+#         model = PlayListTracks
+#         fields = '__all__'
 
-class PlayListSerializer(serializers.ModelSerializer):
+# class PlayListSerializer(serializers.ModelSerializer):
     
-    class Meta:
-        model = PlayList
-        fields = '__all__'
+#     class Meta:
+#         model = PlayList
+#         fields = '__all__'
 
 class LyricsSerializer(serializers.ModelSerializer):
     

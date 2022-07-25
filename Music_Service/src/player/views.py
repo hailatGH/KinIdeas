@@ -1,9 +1,9 @@
 from rest_framework import viewsets
 from rest_framework.pagination import PageNumberPagination
 
-from .models import Artist, Album, Genre, Track, Lyrics, PlayList, PlayListTracks, FavouriteList
+from .models import Artist, Album, Genre, Track, Lyrics, PlayList, PlayListTracks, Favourites
 from .serializers import ArtistSerializer, AlbumSerializer, GenreSerializer, TrackSerializer, \
-    LyricsSerializer, PlayListSerializer, PlayListTracksSerializer, FavouriteListSerializer
+    LyricsSerializer, FavouritesSerializer
 
 # Pagination
 
@@ -77,37 +77,37 @@ class LyricsViewSet(viewsets.ModelViewSet):
     def perform_destroy(self, instance):
         super().perform_destroy(instance)
 
-class PlayListViewSet(viewsets.ModelViewSet):
+# class PlayListViewSet(viewsets.ModelViewSet):
     
-    queryset = PlayList.objects.all()
-    serializer_class = PlayListSerializer
-    pagination_class = StandardResultsSetPagination
+#     queryset = PlayList.objects.all()
+#     serializer_class = PlayListSerializer
+#     pagination_class = StandardResultsSetPagination
 
-    def perform_destroy(self, instance):
-        super().perform_destroy(instance)
+#     def perform_destroy(self, instance):
+#         super().perform_destroy(instance)
 
-class PlayListTracksViewSet(viewsets.ModelViewSet):
+# class PlayListTracksViewSet(viewsets.ModelViewSet):
     
-    serializer_class = PlayListTracksSerializer
+#     serializer_class = PlayListTracksSerializer
+#     pagination_class = StandardResultsSetPagination
+
+#     def get_queryset(self):
+#         id = self.request.query_params['id']
+#         queryset = PlayListTracks.objects.filter(playlist_id=id)
+
+#         return queryset
+
+#     def perform_destroy(self, instance):
+#         super().perform_destroy(instance)
+
+class FavouritesViewSet(viewsets.ModelViewSet):
+    
+    serializer_class = FavouritesSerializer
     pagination_class = StandardResultsSetPagination
 
     def get_queryset(self):
         id = self.request.query_params['id']
-        queryset = PlayListTracks.objects.filter(playlist_id=id)
-
-        return queryset
-
-    def perform_destroy(self, instance):
-        super().perform_destroy(instance)
-
-class FavouriteListViewSet(viewsets.ModelViewSet):
-    
-    serializer_class = FavouriteListSerializer
-    pagination_class = StandardResultsSetPagination
-
-    def get_queryset(self):
-        id = self.request.query_params['id']
-        queryset = FavouriteList.objects.filter(user_id=id)
+        queryset = Favourites.objects.filter(user_id=id)
 
         return queryset
 
