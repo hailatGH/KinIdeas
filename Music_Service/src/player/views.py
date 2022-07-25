@@ -1,9 +1,9 @@
 from rest_framework import viewsets
 from rest_framework.pagination import PageNumberPagination
 
-from .models import Artist, Album, Genre, Track, Lyrics, PlayList, FavouriteList
+from .models import Artist, Album, Genre, Track, Lyrics, PlayList, PlayListTracks, FavouriteList
 from .serializers import ArtistSerializer, AlbumSerializer, GenreSerializer, TrackSerializer, \
-    LyricsSerializer, PlayListSerializer, FavouriteListSerializer
+    LyricsSerializer, PlayListSerializer, PlayListTracksSerializer, FavouriteListSerializer
 
 # Pagination
 
@@ -86,11 +86,30 @@ class PlayListViewSet(viewsets.ModelViewSet):
     def perform_destroy(self, instance):
         super().perform_destroy(instance)
 
+class PlayListTracksViewSet(viewsets.ModelViewSet):
+    
+    serializer_class = PlayListTracksSerializer
+    pagination_class = StandardResultsSetPagination
+
+    def get_queryset(self):
+        id = self.request.query_params['id']
+        queryset = PlayListTracks.objects.filter(playlist_id=id)
+
+        return queryset
+
+    def perform_destroy(self, instance):
+        super().perform_destroy(instance)
+
 class FavouriteListViewSet(viewsets.ModelViewSet):
     
-    queryset = FavouriteList.objects.all()
     serializer_class = FavouriteListSerializer
     pagination_class = StandardResultsSetPagination
+
+    def get_queryset(self):
+        id = self.request.query_params['id']
+        queryset = FavouriteList.objects.filter(user_id=id)
+
+        return queryset
 
     def perform_destroy(self, instance): 
         super().perform_destroy(instance)

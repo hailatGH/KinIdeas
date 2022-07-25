@@ -1,7 +1,7 @@
 from rest_framework.routers import DefaultRouter
 
-from player.views import ArtistViewSet, AlbumViewSet, GenreViewSet, \
-    TrackViewSet, LyricsViewSet, PlayListViewSet, FavouriteListViewSet
+from player.views import ArtistViewSet, AlbumViewSet, GenreViewSet, TrackViewSet, LyricsViewSet, PlayListViewSet, \
+    FavouriteListViewSet, PlayListTracksViewSet
 
 from player.player import SingleMusicPlayer, AlbumMusicsPlayer, PlaylistMusicsPlayer
 
@@ -12,7 +12,8 @@ router.register(r'album', AlbumViewSet, basename="album")
 router.register(r'genre', GenreViewSet, basename="genre")
 router.register(r'track', TrackViewSet, basename="track")
 router.register(r'lyrics', LyricsViewSet, basename="lyrics")
-router.register(r'playlist', PlayListViewSet, basename="playlist")
+router.register(r'playlists', PlayListViewSet, basename="playlists")
+router.register(r'playlisttracks', PlayListTracksViewSet, basename="playlisttracks")
 router.register(r'favouritelist', FavouriteListViewSet, basename="favouritelist")
 router.register(r'singleplay', SingleMusicPlayer, basename="singleplay")
 router.register(r'albumplay', AlbumMusicsPlayer, basename="albumplay")

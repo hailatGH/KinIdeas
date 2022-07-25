@@ -119,22 +119,29 @@ class PlayList(models.Model):
         verbose_name_plural = _("PlayLists")
         ordering = ['id']
     
-    playlist_name = models.CharField(max_length=100, default='Unknown PlayList', null=False, blank=False)
+    playlist_name = models.CharField(max_length=100, default='Unknown Track', null=False, blank=False)
+    playlist_description = models.TextField(blank=True, null=True, max_length=1023)
     user_id =  models.IntegerField(default=1, null=False, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-class PlayListtracks(models.Model):
+    def __str__(self):
+        return '%d: %s' % (self.pk, self.playlist_name)
+
+class PlayListTracks(models.Model):
 
     class Meta:
-        verbose_name = _("PlayList")
-        verbose_name_plural = _("PlayLists")
+        verbose_name = _("PlayListTrack")
+        verbose_name_plural = _("PlayListTracks")
         ordering = ['id']
     
-    playlist_id = models.ForeignKey(PlayList, default=1, related_name='playlist_name', on_delete=models.DO_NOTHING, null=False, blank=False)
-    track_id = models.ForeignKey(Track, default=1, related_name='playlist_track', on_delete=models.DO_NOTHING, null=False, blank=False)
+    playlist_id = models.ForeignKey(PlayList, default=1, related_name='playlist_na', on_delete=models.DO_NOTHING, null=False, blank=False)
+    track_id = models.ForeignKey(Track, default=1, related_name='playlist_t', on_delete=models.DO_NOTHING, null=False, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return '%d: %s' % (self.pk)
 
 class FavouriteList(models.Model):
 
@@ -147,3 +154,6 @@ class FavouriteList(models.Model):
     user_id =  models.IntegerField(default=1, null=False, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return '%d: %s' % (self.pk)

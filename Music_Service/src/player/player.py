@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from drf_multiple_model.viewsets import ObjectMultipleModelAPIViewSet
 
-from .models import Artist, Album, Genre, Track, Lyrics, PlayList, FavouriteList
+from .models import Artist, Album, Genre, PlayListTracks, Track, Lyrics, PlayList, FavouriteList
 
 # Serializers
 
@@ -56,25 +56,31 @@ class ArtistSerializer(serializers.ModelSerializer):
         ]
 
 class FavouriteListSerializer(serializers.ModelSerializer):
-    favouritelist = TrackSerializer(many=True, required=False)
 
     class Meta:
         model = FavouriteList
         fields = [
             'id',
             'user_id',
-            'favouritelist',
+        ]
+
+class PlayListTracksSerializer(serializers.ModelSerializer):  
+
+    class Meta:
+        model = PlayListTracks
+        fields = [
+            # 'id',
+            'track_id',
         ]
 
 class PlayListSerializer(serializers.ModelSerializer):  
-    playlist = TrackSerializer(many=True, required=False)
 
     class Meta:
         model = PlayList
         fields = [
-            'id',
+            # 'id',
             'playlist_name',
-            'playlist',
+            'user_id',
         ]
 
 # Views
@@ -84,14 +90,12 @@ class SingleMusicPlayer(ObjectMultipleModelAPIViewSet):
         t_id = self.request.query_params['id']
         ar_id = Track.objects.filter(id=t_id).values('artist_id')[0]['artist_id']
         al_id = Track.objects.filter(id=t_id).values('album_id')[0]['album_id']
-        ge_id = Track.objects.filter(id=t_id).values('genre_id')[0]['genre_id']
 
         querylist = (
             {'queryset': Artist.objects.filter(id=ar_id), 'serializer_class': ArtistSerializer},
             {'queryset': Album.objects.filter(id=al_id), 'serializer_class': AlbumSerializer},
-            {'queryset': Genre.objects.filter(id=ge_id), 'serializer_class': GenreSerializer},
             {'queryset': Track.objects.filter(id=t_id), 'serializer_class': TrackSerializer},
-            {'queryset': Lyrics.objects.filter(track_id=t_id), 'serializer_class': LyricsSerializer},
+            {'queryset': Genre.objects.all(), 'serializer_class': GenreSerializer},
         )
 
         return querylist
@@ -113,18 +117,14 @@ class AlbumMusicsPlayer(ObjectMultipleModelAPIViewSet):
 class PlaylistMusicsPlayer(ObjectMultipleModelAPIViewSet):
     def get_querylist(self):
         pl_id = self.request.query_params['id']
-        us_id = Album.objects.filter(id=pl_id).values('user_id')[0]
-
-        print(us_id)
         
         querylist = (
-            # {'queryset': Artist.objects.filter(id=ar_id), 'serializer_class': ArtistSerializer},
             {'queryset': PlayList.objects.filter(id=pl_id), 'serializer_class': PlayListSerializer},
-            # {'queryset': Track.objects.filter(album_id=al_id), 'serializer_class': TrackSerializer},
-            # {'queryset': Genre.objects.all(), 'serializer_class': GenreSerializer},
+            {'queryset': PlayListTracks.objects.filter(playlist_id=pl_id), 'serializer_class': PlayListTracksSerializer},
+            {'queryset': Genre.objects.all(), 'serializer_class': GenreSerializer},
         )
 
         return querylist
 
-class FavlistMusicsPlayer(ObjectMultipleModelAPIViewSet):
-    pass
+# class FavlistMusicsPlayer(ObjectMultipleModelAPIViewSet):
+#     pass
