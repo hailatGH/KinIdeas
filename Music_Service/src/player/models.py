@@ -120,8 +120,19 @@ class PlayList(models.Model):
         ordering = ['id']
     
     playlist_name = models.CharField(max_length=100, default='Unknown PlayList', null=False, blank=False)
-    track_id = models.ForeignKey(Track, default=1, related_name='playlist', on_delete=models.DO_NOTHING, null=False, blank=False)
     user_id =  models.IntegerField(default=1, null=False, blank=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+class PlayListtracks(models.Model):
+
+    class Meta:
+        verbose_name = _("PlayList")
+        verbose_name_plural = _("PlayLists")
+        ordering = ['id']
+    
+    playlist_id = models.ForeignKey(PlayList, default=1, related_name='playlist_name', on_delete=models.DO_NOTHING, null=False, blank=False)
+    track_id = models.ForeignKey(Track, default=1, related_name='playlist_track', on_delete=models.DO_NOTHING, null=False, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
