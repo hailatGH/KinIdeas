@@ -46,7 +46,7 @@ class Album(models.Model):
         ordering = ['id']
 
     album_title = models.CharField(max_length=100, default='Unknown Album', null=False, blank=False)
-    album_cover = models.ImageField(upload_to=Albums_Profile_Images, validators=[validators.validate_image_extension], height_field=None, width_field=None, null=False, blank=False)
+    album_cover = models.ImageField(upload_to=Albums_Profile_Images, validators=[validators.validate_image_extension], height_field=None, width_field=None, null=False, blank=True)
     album_description = models.TextField(max_length=1023, blank=True, null=True)
     artist_id = models.ForeignKey(Artist, default=1, related_name='albums', on_delete=models.DO_NOTHING)
     user_id =  models.IntegerField(default=1)
@@ -64,7 +64,7 @@ class Genre(models.Model):
         ordering = ['id']
 
     genre_title = models.CharField(max_length=100, default='Unknown Genre', null=False, blank=False)
-    genre_cover = models.ImageField(upload_to=Genres_Cover_Images, validators=[validators.validate_image_extension], height_field=None, width_field=None, null=False, blank=False)
+    genre_cover = models.ImageField(upload_to=Genres_Cover_Images, validators=[validators.validate_image_extension], height_field=None, width_field=None, null=False, blank=True)
     genre_description = models.TextField(blank=True, null=True, max_length=1023)
     user_id =  models.IntegerField(default=1)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -132,7 +132,7 @@ class FavouriteList(models.Model):
         verbose_name_plural = _("FavouriteLists")
         ordering = ['id']
     
-    track_id = models.ForeignKey(Track, default=1, related_name='playlist', on_delete=models.DO_NOTHING)
+    track_id = models.ForeignKey(Track, default=1, related_name='favouritelist', on_delete=models.DO_NOTHING)
     user_id =  models.IntegerField(default=1)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
