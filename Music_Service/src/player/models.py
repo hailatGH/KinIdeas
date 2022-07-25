@@ -46,7 +46,7 @@ class Album(models.Model):
         ordering = ['id']
 
     album_title = models.CharField(max_length=100, default='Unknown Album', null=False, blank=False)
-    album_cover = models.ImageField(upload_to=Albums_Profile_Images, validators=[validators.validate_image_extension], height_field=None, width_field=None, null=False, blank=True)
+    album_cover = models.ImageField(upload_to=Albums_Profile_Images, validators=[validators.validate_image_extension], height_field=None, width_field=None, null=False, blank=False)
     album_description = models.TextField(max_length=1023, blank=True, null=True)
     artist_id = models.ForeignKey(Artist, default=1, related_name='albums', on_delete=models.DO_NOTHING)
     user_id =  models.IntegerField(default=1)
@@ -120,8 +120,8 @@ class PlayList(models.Model):
         ordering = ['id']
     
     playlist_name = models.CharField(max_length=100, default='Unknown PlayList', null=False, blank=False)
-    track_id = models.ForeignKey(Track, default=1, related_name='playlist', on_delete=models.DO_NOTHING)
-    user_id =  models.IntegerField(default=1)
+    track_id = models.ForeignKey(Track, default=1, related_name='playlist', on_delete=models.DO_NOTHING, null=False, blank=False)
+    user_id =  models.IntegerField(default=1, null=False, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -132,7 +132,7 @@ class FavouriteList(models.Model):
         verbose_name_plural = _("FavouriteLists")
         ordering = ['id']
     
-    track_id = models.ForeignKey(Track, default=1, related_name='favouritelist', on_delete=models.DO_NOTHING)
-    user_id =  models.IntegerField(default=1)
+    track_id = models.ForeignKey(Track, default=1, related_name='favouritelist', on_delete=models.DO_NOTHING, null=False, blank=False)
+    user_id =  models.IntegerField(default=1, null=False, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

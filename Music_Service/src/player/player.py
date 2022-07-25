@@ -3,6 +3,8 @@ from drf_multiple_model.viewsets import ObjectMultipleModelAPIViewSet
 
 from .models import Artist, Album, Genre, Track, Lyrics
 
+# Serializers
+
 class LyricsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lyrics
@@ -49,7 +51,9 @@ class ArtistSerializer(serializers.ModelSerializer):
             'artist_name',
         ]
 
-class PlayerViewSet(ObjectMultipleModelAPIViewSet):
+# Views
+
+class SingleMusicViewSet(ObjectMultipleModelAPIViewSet):
     def get_querylist(self):
         t_id = self.request.query_params['id']
         ar_id = Track.objects.filter(id=t_id).values('artist_id')[0]['artist_id']

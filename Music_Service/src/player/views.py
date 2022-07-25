@@ -10,7 +10,7 @@ from .serializers import ArtistSerializer, AlbumSerializer, GenreSerializer, Tra
 class StandardResultsSetPagination(PageNumberPagination):
     page_size = 2
     page_size_query_param = 'page_size'
-    max_page_size = 1000
+    # max_page_size = 1000
 
 # Create your views here.
 
@@ -24,11 +24,9 @@ class ArtistViewSet(viewsets.ModelViewSet):
         instance = serializer.save()
         if not instance.artist_cover:
             artist_cover = Artist.objects.filter(id=instance.id).values('artist_cover')[0]['artist_cover']
-            # print(artist_cover)
             instance.artist_cover = artist_cover
 
     def perform_destroy(self, instance):
-        # instance 
         super().perform_destroy(instance)
 
 class AlbumViewSet(viewsets.ModelViewSet):
@@ -38,14 +36,12 @@ class AlbumViewSet(viewsets.ModelViewSet):
     pagination_class = StandardResultsSetPagination
 
     def perform_create(self, serializer):
-        # serializer.save(user=self.request.user)
         album_title = serializer.validated_data.get('album_title') or None
         if album_title is None:
             album_title = "Unknown Album"
         serializer.save(album_title=album_title)
 
     def perform_destroy(self, instance):
-        # instance 
         super().perform_destroy(instance)
 
 class GenreViewSet(viewsets.ModelViewSet):
@@ -55,14 +51,12 @@ class GenreViewSet(viewsets.ModelViewSet):
     pagination_class = StandardResultsSetPagination
 
     def perform_create(self, serializer):
-        # serializer.save(user=self.request.user)
         genre_title = serializer.validated_data.get('genre_title') or None
         if genre_title is None:
             genre_title = "Unknown Genre"
         serializer.save(genre_title=genre_title)
     
     def perform_destroy(self, instance):
-        # instance 
         super().perform_destroy(instance)
 
 class TrackViewSet(viewsets.ModelViewSet):
@@ -72,7 +66,6 @@ class TrackViewSet(viewsets.ModelViewSet):
     pagination_class = StandardResultsSetPagination
 
     def perform_destroy(self, instance):
-        # instance 
         super().perform_destroy(instance)
 
 class LyricsViewSet(viewsets.ModelViewSet):
@@ -82,7 +75,6 @@ class LyricsViewSet(viewsets.ModelViewSet):
     pagination_class = StandardResultsSetPagination
 
     def perform_destroy(self, instance):
-        # instance 
         super().perform_destroy(instance)
 
 class PlayListViewSet(viewsets.ModelViewSet):
@@ -92,7 +84,6 @@ class PlayListViewSet(viewsets.ModelViewSet):
     pagination_class = StandardResultsSetPagination
 
     def perform_destroy(self, instance):
-        # instance 
         super().perform_destroy(instance)
 
 class FavouriteListViewSet(viewsets.ModelViewSet):
@@ -101,6 +92,5 @@ class FavouriteListViewSet(viewsets.ModelViewSet):
     serializer_class = FavouriteListSerializer
     pagination_class = StandardResultsSetPagination
 
-    def perform_destroy(self, instance):
-        # instance 
+    def perform_destroy(self, instance): 
         super().perform_destroy(instance)
