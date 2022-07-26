@@ -11,8 +11,8 @@ class FavouritesSerializer(serializers.ModelSerializer):
 
         validators = [
             UniqueTogetherValidator(
-                queryset=PlayListTracks.objects.all(),
-                fields=['user_id', 'track_id']
+                queryset=Favourites.objects.all(),
+                fields=['track_id', 'user_id']
             )
         ]
 
@@ -37,7 +37,7 @@ class PlayListSerializer(serializers.ModelSerializer):
 
         validators = [
             UniqueTogetherValidator(
-                queryset=PlayListTracks.objects.all(),
+                queryset=PlayList.objects.all(),
                 fields=['playlist_name', 'user_id']
             )
         ]
