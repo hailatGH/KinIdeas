@@ -1,14 +1,14 @@
-from rest_framework import serializers
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from slugify import slugify
 
 from .models import Artist, Album, Genre, PlayListTracks, Track, Lyrics, PlayList, Favourites
 
-@api_view()
-def hello_world(request):
+@api_view(['GET'])
+def play_single_track(request):
     track_data = {}
     
-    track_obj = Track.objects.filter(id=request.GET['track']).values('id', 'track_name', 'track_file', 'artist_id', 'album_id', \
+    track_obj = Track.objects.filter(id=request.query_params['track']).values('id', 'track_name', 'track_file', 'artist_id', 'album_id', \
         "genre_id")
     track_id = track_obj[0]['id']
     track_name = track_obj[0]['track_name']
@@ -27,4 +27,8 @@ def hello_world(request):
         "album_title", "album_cover", "genre_id", "genre_title", "lyrics_id", "lyrics_detail"]:
         track_data[variable] = eval(variable)
 
-    return Response(track_data)
+    return Response({"Track Data": track_data})
+
+@api_view(['GET'])
+def play_album_tracks(request):
+    return Response({"Track Data": "works"})
