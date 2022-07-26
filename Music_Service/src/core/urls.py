@@ -22,6 +22,7 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
 from .router import router
+from player.players import hello_world
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -40,6 +41,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # path('api-auth/', include('rest_framework.urls')),
     path('api/', include(router.urls)),
+    path('player/', hello_world, name='player'),
     path('OpenAPI_Config_Music_Service.yaml', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc')
