@@ -6,7 +6,16 @@ from .models import Artist, Album, Genre, PlayListTracks, Track, Lyrics, PlayLis
 
 @api_view()
 def hello_world(request):
-    return Response({"message": "Hello, world!"})
+    track_id = request.GET['track']
+    track_data = Track.objects.filter(id=track_id).values('id', 'track_name', 'track_file', 'artist_id', 'album_id', \
+        "genre_id")
+
+    print()
+    artist_name = Artist.objects.filter(id=track_data[0]['artist_id']).values('artist_name')
+    # artist_id = Track.objects.filter(id=track_id).values('artist_id')[0]['artist_id']
+    # album_id = Track.objects.filter(id=track_id).values('album_id')[0]['album_id']
+    # genre_id = Track.objects.filter(id=track_id).values('album_id')[0]['album_id']
+    return Response({"Track_Data": artist_name})
 
 # class SingleMusicPlayer(views):
 #     def get_query(self):
