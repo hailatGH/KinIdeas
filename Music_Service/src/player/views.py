@@ -53,28 +53,12 @@ class PlayListViewSet(viewsets.ModelViewSet):
 
 class PlayListTracksViewSet(viewsets.ModelViewSet):
     
+    queryset = PlayListTracks.objects.all()
     serializer_class = PlayListTracksSerializer
     pagination_class = StandardResultsSetPagination
 
-    def get_queryset(self):
-        id = self.request.query_params['id']
-        queryset = PlayListTracks.objects.filter(playlist_id=id)
-
-        return queryset
-
-    def perform_destroy(self, instance):
-        super().perform_destroy(instance)
-
 class FavouritesViewSet(viewsets.ModelViewSet):
-    
+
+    queryset = Favourites.objects.all()
     serializer_class = FavouritesSerializer
     pagination_class = StandardResultsSetPagination
-
-    def get_queryset(self):
-        id = self.request.query_params['id']
-        queryset = Favourites.objects.filter(user_id=id)
-
-        return queryset
-
-    def perform_destroy(self, instance): 
-        super().perform_destroy(instance)

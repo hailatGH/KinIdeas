@@ -165,4 +165,4 @@ class Favourites(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return '%d: %s' % (self.pk)
+        return '%d: %d' % (self.pk, self.user_id)

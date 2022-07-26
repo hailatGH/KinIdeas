@@ -63,6 +63,16 @@ def play_album_tracks(request):
         for i in range(len(track_obj)):
             tracks[i] = track_data
 
-    
-
     return Response({"Album Data": album_data, "Tracks": tracks})
+
+@api_view(['GET'])
+def play_playlist_tracks(request):
+   
+    return Response({"Playlist Data": "Works"})
+
+@api_view(['GET'])
+def play_favourite_tracks(request):
+    favourite_data = {}
+    favourite_obj = Favourites.objects.filter(user_id=request.query_params['user']).values('id', 'user_id', 'track_id')
+   
+    return Response({"Favourite Data": favourite_data})
