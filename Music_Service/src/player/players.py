@@ -31,4 +31,27 @@ def play_single_track(request):
 
 @api_view(['GET'])
 def play_album_tracks(request):
-    return Response({"Track Data": "works"})
+    album_data = {}
+    track_data = {}
+
+    album_obj = Album.objects.filter(id=request.query_params['album']).values('id', 'album_title', 'album_cover', 'artist_id')
+    album_id = album_obj[0]['id']
+    album_title = album_obj[0]['album_title']
+    album_cover = album_obj[0]['album_cover']
+    artist_id = album_obj[0]['artist_id']
+    artist_name = Artist.objects.filter(id=artist_id).values('artist_name')[0]['artist_name']
+
+    for variable in ["album_id", "album_title", "album_cover", "artist_id", "artist_name"]:
+        album_data[variable] = eval(variable)
+
+    track_obj = Track.objects.filter(album_id=album_obj[0]['id']).values('id', 'track_name', 'track_file', 'genre_id')
+    track_id = ""
+    track_name = ""
+    track_file = ""
+    genre_id = ""
+    genre_name = ""
+
+    for variable in ["track_id", "track_name", "track_file", "genre_id", "genre_name"]:
+        track_data[variable] = eval(variable)
+
+    return Response({"Album Data": album_data, "Tracks": track_data})
