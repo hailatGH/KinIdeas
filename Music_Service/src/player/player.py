@@ -100,19 +100,19 @@ class SingleMusicPlayer(ObjectMultipleModelAPIViewSet):
 
         return querylist
 
-class AlbumMusicsPlayer(ObjectMultipleModelAPIViewSet):
-    def get_querylist(self):
-        al_id = self.request.query_params['id']
-        ar_id = Album.objects.filter(id=al_id).values('artist_id')[0]['artist_id']
+# class AlbumMusicsPlayer(ObjectMultipleModelAPIViewSet):
+#     def get_querylist(self):
+#         al_id = self.request.query_params['id']
+#         ar_id = Album.objects.filter(id=al_id).values('artist_id')[0]['artist_id']
         
-        querylist = (
-            {'queryset': Artist.objects.filter(id=ar_id), 'serializer_class': ArtistSerializer},
-            {'queryset': Album.objects.filter(id=al_id), 'serializer_class': AlbumSerializer},
-            {'queryset': Track.objects.filter(album_id=al_id), 'serializer_class': TrackSerializer},
-            {'queryset': Genre.objects.all(), 'serializer_class': GenreSerializer},
-        )
+#         querylist = (
+#             {'queryset': Artist.objects.filter(id=ar_id), 'serializer_class': ArtistSerializer},
+#             {'queryset': Album.objects.filter(id=al_id), 'serializer_class': AlbumSerializer},
+#             {'queryset': Track.objects.filter(album_id=al_id), 'serializer_class': TrackSerializer},
+#             {'queryset': Genre.objects.all(), 'serializer_class': GenreSerializer},
+#         )
 
-        return querylist
+#         return querylist
 
 # class PlaylistMusicsPlayer(ObjectMultipleModelAPIViewSet):
 #     def get_querylist(self):
@@ -129,11 +129,8 @@ class AlbumMusicsPlayer(ObjectMultipleModelAPIViewSet):
 class FavouritesMusicsPlayer(ObjectMultipleModelAPIViewSet):
     def get_querylist(self):
         us_id = self.request.query_params['id']
-        # ar_id = Favourites.objects.filter(id=al_id).values('artist_id')[0]['artist_id']
         
         querylist = (
-            # {'queryset': Artist.objects.filter(id=ar_id), 'serializer_class': ArtistSerializer},
-            # {'queryset': Album.objects.filter(id=al_id), 'serializer_class': AlbumSerializer},
             {'queryset': Favourites.objects.filter(user_id=us_id), 'serializer_class': FavouritesSerializer},
             {'queryset': Genre.objects.all(), 'serializer_class': GenreSerializer},
         )
