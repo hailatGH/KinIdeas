@@ -9,7 +9,7 @@ def Artists_Profile_Images(instance, filename):
         str(instance.artist_name + " - " + filename)])
     # The directory arrangment will be [media/Artists_Profile_Images/{artist_name}/{filename}]
 
-def Albums_Profile_Images(instance, filename):
+def Albums_Cover_Images(instance, filename):
     return '/'.join(['Media_Files', 'Albums_Cover_Images', str(instance.artist_id), str(instance.album_title), \
         str(instance.album_title + " - " + filename)])
     # The directory arrangment will be [media/Albums_Profile_Images/{album_title}/{filename}]
@@ -50,7 +50,7 @@ class Album(models.Model):
         ordering = ['id']
 
     album_title = models.CharField(max_length=100, default='Unknown Album', null=False, blank=True, unique=True)
-    album_cover = models.ImageField(upload_to=Albums_Profile_Images, validators=[validators.validate_image_extension], \
+    album_cover = models.ImageField(upload_to=Albums_Cover_Images, validators=[validators.validate_image_extension], \
         height_field=None, width_field=None, null=False, blank=True, unique=True)
     album_description = models.TextField(max_length=1023, blank=True, null=True)
     artist_id = models.ForeignKey(Artist, default=1, related_name='albums', on_delete=models.DO_NOTHING)
@@ -126,7 +126,7 @@ class PlayList(models.Model):
         verbose_name_plural = _("PlayLists")
         ordering = ['id']
     
-    playlist_name = models.CharField(max_length=100, default='Unknown Track', null=False, blank=False)
+    playlist_name = models.CharField(max_length=100, default='Unknown PlayList', null=False, blank=False)
     user_id =  models.IntegerField(default=1, null=False, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -165,4 +165,5 @@ class Favourites(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return '%d: %d' % (self.pk, self.user_id)
+        #return '%d: %d' % (self.pk, self.user_id)
+        return f'{self.pk} {self.user_id}'
