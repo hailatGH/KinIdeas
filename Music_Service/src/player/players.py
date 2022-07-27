@@ -71,9 +71,43 @@ def play_playlist_tracks(request):
     playlist_data = {}
     tracks = {}
 
-    playlist_obj = PlayList.objects.filter(user_id=request.query_params['user']).values('id', 'playlist_name', 'user_id')
+    playlist_obj = PlayList.objects.filter(id=request.query_params['playlist']).values('id', 'playlist_name', 'user_id')
+    playlist_id = playlist_obj[0]['id']
+    playlist_name = playlist_obj[0]['playlist_name']
+    user_id = playlist_obj[0]['user_id']
 
-    return Response({"Playlist Data": playlist_obj})
+    for variable in ["playlist_id", "playlist_name", "user_id"]:
+        playlist_data[variable] = eval(variable)
+
+    playlist_tracks_obj = PlayListTracks.objects.filter(playlist_id=playlist_id).values('playlist_id', 'track_id')
+
+    for i in range(len(playlist_tracks_obj)):
+        track_data = {}
+    
+        track_obj = Track.objects.filter(id=playlist_tracks_obj[i]['track_id']).values('id', 'track_name', 'track_file', 'artist_id', 'album_id', \
+            "genre_id")
+        track_id = track_obj[0]['id']
+        track_name = track_obj[0]['track_name']
+        track_file = track_obj[0]['track_file']
+        artist_id = track_obj[0]['artist_id']
+        artist_name = Artist.objects.filter(id=track_obj[0]['artist_id']).values('artist_name')[0]['artist_name']
+        album_id = track_obj[0]['album_id']
+        album_title = Album.objects.filter(id=track_obj[0]['album_id']).values('album_title')[0]['album_title']
+        album_cover = Album.objects.filter(id=track_obj[0]['album_id']).values('album_cover')[0]['album_cover']
+        genre_id = track_obj[0]['genre_id']
+        genre_title = Genre.objects.filter(id=track_obj[0]['genre_id']).values('genre_title')[0]['genre_title']
+        lyrics_id = Lyrics.objects.filter(track_id=track_id).values('id')[0]['id']
+        lyrics_detail = Lyrics.objects.filter(track_id=track_id).values('lyrics_detail')[0]['lyrics_detail']
+
+        for variable in ["track_id", "track_name", "track_file", "artist_id", "artist_name", "album_id",\
+            "album_title", "album_cover", "genre_id", "genre_title", "lyrics_id", "lyrics_detail"]:
+            track_data[variable] = eval(variable)
+        
+        tracks["Track: " + str(i)] = track_data
+
+    playlist_data["Tracks"] = tracks
+
+    return Response({"Playlist Data": playlist_data})
 
 @api_view(['GET'])
 def play_favourite_tracks(request):
