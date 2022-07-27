@@ -22,7 +22,7 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
 from .router import router
-from player.players import play_single_track, play_album_tracks, play_playlist_tracks, play_favourite_tracks
+# from player.players import play_single_track, play_album_tracks, play_playlist_tracks, play_favourite_tracks
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -41,10 +41,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # path('api-auth/', include('rest_framework.urls')),
     path('api/', include(router.urls)),
-    path('player/', play_single_track, name='player'),
-    path('album_player/', play_album_tracks, name='album_player'),
-    path('playlist_player/', play_playlist_tracks, name='playlist_player'),
-    path('favourite_player/', play_favourite_tracks, name='favourite_player'),
+    # path('player/', play_single_track, name='player'),
+    # path('album_player/', play_album_tracks, name='album_player'),
+    # path('playlist_player/', play_playlist_tracks, name='playlist_player'),
+    # path('favourite_player/', play_favourite_tracks, name='favourite_player'),
     path('OpenAPI_Config_Music_Service.yaml', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc')

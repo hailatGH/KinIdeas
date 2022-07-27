@@ -117,7 +117,7 @@ class PlayList(models.Model):
     def __str__(self):
         return '%d: %s' % (self.pk, self.playlist_name)
 
-class PlayListTracks(models.Model):
+class PlayListEpisodes(models.Model):
 
     class Meta:
         verbose_name = _("PlayListTrack")
