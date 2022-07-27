@@ -18,12 +18,12 @@ gcloud iam service-accounts create music-service-account
 SERVICE_ACCOUNT=$(gcloud iam service-accounts list \
     --filter music-service-account --format "value(email)")
 
-gcloud sql instances create kin-project-postgresql-v2 \
-  --project $PROJECT_ID \
-  --database-version POSTGRES_14 \
-  --cpu=2 \
-  --memory=7680MB \
-  --region $REGION
+# gcloud sql instances create kin-project-postgresql-v2 \
+#   --project $PROJECT_ID \
+#   --database-version POSTGRES_14 \
+#   --cpu=2 \
+#   --memory=7680MB \
+#   --region $REGION
 
 gcloud sql databases create music-database --instance kin-project-postgresql-v2
 
