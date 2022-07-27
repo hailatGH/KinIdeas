@@ -26,7 +26,7 @@ steps:
           python3 manage.py collectstatic --noinput"
 
 substitutions:
-  _INSTANCE_CONNECTION_NAME: "${PROJECT_ID}:${_REGION}:kin-project-postgresql-v1"
+  _INSTANCE_CONNECTION_NAME: "${PROJECT_ID}:${_REGION}:kin-project-postgresql-v2"
   _IMAGE_NAME: "gcr.io/${PROJECT_ID}/music_service_image"
   _REGION: europe-west1
 

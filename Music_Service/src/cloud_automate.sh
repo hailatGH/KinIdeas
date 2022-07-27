@@ -18,10 +18,17 @@ gcloud iam service-accounts create music-service-account
 SERVICE_ACCOUNT=$(gcloud iam service-accounts list \
     --filter music-service-account --format "value(email)")
 
-gcloud sql databases create music-database --instance kin-project-postgresql-v1
+gcloud sql instances create kin-project-postgresql-v2 \
+  --project $PROJECT_ID \
+  --database-version POSTGRES_14 \
+  --cpu=2 \
+  --memory=7680MB \
+  --region $REGION
+
+gcloud sql databases create music-database --instance kin-project-postgresql-v2
 
 music_database_admin_password="$(cat /dev/urandom | LC_ALL=C tr -dc 'a-zA-Z0-9' | fold -w 30 | head -n 1)"
-gcloud sql users create music_database_admin --instance kin-project-postgresql-v1 --password $music_database_admin_password
+gcloud sql users create music_database_admin --instance kin-project-postgresql-v2 --password $music_database_admin_password
 
 gcloud projects add-iam-policy-binding $PROJECT_ID \
     --member serviceAccount:${SERVICE_ACCOUNT} \
@@ -34,7 +41,7 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
 GS_BUCKET_NAME=${PROJECT_ID}-storage
 gsutil mb -l ${REGION} gs://${GS_BUCKET_NAME}
 
-echo DATABASE_URL=\"postgres://music_database_admin:${music_database_admin_password}@//cloudsql/${PROJECT_ID}:${REGION}:kin-project-postgresql-v1/music-database\" > .env
+echo DATABASE_URL=\"postgres://music_database_admin:${music_database_admin_password}@//cloudsql/${PROJECT_ID}:${REGION}:kin-project-postgresql-v2/music-database\" > .env
 echo GS_BUCKET_NAME=\"${GS_BUCKET_NAME}\" >> .env
 echo SECRET_KEY=\"$(cat /dev/urandom | LC_ALL=C tr -dc 'a-zA-Z0-9' | fold -w 50 | head -n 1)\" >> .env
 echo DEBUG=\"True\" >> .env
@@ -74,7 +81,7 @@ gcloud run deploy music-service \
   --platform managed \
   --region $REGION \
   --image gcr.io/${PROJECT_ID}/music_service_image \
-  --set-cloudsql-instances ${PROJECT_ID}:${REGION}:kin-project-postgresql-v1 \
+  --set-cloudsql-instances ${PROJECT_ID}:${REGION}:kin-project-postgresql-v2 \
   --set-secrets MUSIC_SERVICE_SETTINGS=music_service_settings:latest \
   --service-account $SERVICE_ACCOUNT \
   --allow-unauthenticated
