@@ -40,7 +40,7 @@ class PlayListViewSet(viewsets.ModelViewSet):
     serializer_class = PlayListSerializer
     pagination_class = StandardResultsSetPagination
 
-class PlayListTracksViewSet(viewsets.ModelViewSet):
+class PlayListEpisodesViewSet(viewsets.ModelViewSet):
     
     queryset = PlayListEpisodes.objects.all()
     serializer_class = PlayListEpisodesSerializer
