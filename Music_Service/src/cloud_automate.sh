@@ -70,7 +70,7 @@ echo -n "${music_admin_password}" | gcloud secrets create music_admin_password -
 gcloud secrets add-iam-policy-binding music_admin_password \
   --member serviceAccount:${CLOUDBUILD} --role roles/secretmanager.secretAccessor
 
-gcloud builds submit --pack image=gcr.io/${PROJECT_ID}/music_service_image
+gcloud builds submit --region=$REGION --pack image=gcr.io/${PROJECT_ID}/music_service_image
 
 gcloud builds submit --config migrate.yaml --substitutions _REGION=$REGION
 
