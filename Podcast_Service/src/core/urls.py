@@ -22,7 +22,7 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
 from .router import router
-from player.players import play_single_episode, play_season_episodes, play_playlist_episodes
+from player.players import play_single_episode, play_season_episodes, play_playlist_episodes, play_favourite_episodes
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -44,7 +44,7 @@ urlpatterns = [
     path('player/', play_single_episode, name='player'),
     path('season_player/', play_season_episodes, name='season_player'),
     path('playlist_player/', play_playlist_episodes, name='playlist_player'),
-    # path('favourite_player/', play_favourite_tracks, name='favourite_player'),
+    path('favourite_player/', play_favourite_episodes, name='favourite_player'),
     path('OpenAPI_Config_Music_Service.yaml', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc')
