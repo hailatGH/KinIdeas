@@ -73,7 +73,7 @@ gcloud projects add-iam-policy-binding ${PROJECT_ID} \
 
 radio_admin_password="$(cat /dev/urandom | LC_ALL=C tr -dc 'a-zA-Z0-9' | fold -w 30 | head -n 1)"
 
-echo -n "${podcast_admin_password}" | gcloud secrets create radio_admin_password --data-file=-
+echo -n "${radio_admin_password}" | gcloud secrets create radio_admin_password --data-file=-
 
 gcloud secrets add-iam-policy-binding radio_admin_password \
   --member serviceAccount:${CLOUDBUILD} \
