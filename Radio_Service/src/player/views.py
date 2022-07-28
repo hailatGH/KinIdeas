@@ -5,7 +5,7 @@ from .serializers import StationSerializer
 
 # Create your views here.
 
-class RadioViewSet(viewsets.ModelViewSet):
+class StationViewSet(viewsets.ModelViewSet):
     
     queryset = Station.objects.all()
     serializer_class = StationSerializer
