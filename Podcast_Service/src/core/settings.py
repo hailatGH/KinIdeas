@@ -9,16 +9,16 @@ from .basesettings import *
 
 # Load the settings from the environment variable
 env = environ.Env()
-env.read_env(io.StringIO(os.environ.get("MUSIC_SERVICE_SETTINGS", None)))
+env.read_env(io.StringIO(os.environ.get("PODCAST_SERVICE_SETTINGS", None)))
 
 # Setting this value from django-environ
 SECRET_KEY = env("SECRET_KEY")
 
 # If defined, add service URL to Django security settings
-MUSIC_SERVICE_URL = env("MUSIC_SERVICE_URL", default=None)
-if MUSIC_SERVICE_URL:
-    ALLOWED_HOSTS = [urlparse(MUSIC_SERVICE_URL).netloc]
-    CSRF_TRUSTED_ORIGINS = [MUSIC_SERVICE_URL]
+PODCAST_SERVICE_URL = env("PODCAST_SERVICE_URL", default=None)
+if PODCAST_SERVICE_URL:
+    ALLOWED_HOSTS = [urlparse(PODCAST_SERVICE_URL).netloc]
+    CSRF_TRUSTED_ORIGINS = [PODCAST_SERVICE_URL]
 else:
     ALLOWED_HOSTS = ["*"]
 
