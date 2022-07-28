@@ -12,19 +12,19 @@ def play_single_episode(request):
     episode_id = episode_obj[0]['id']
     episode_title = episode_obj[0]['episode_title']
     episode_file = episode_obj[0]['episode_file']
-    host_id = episode_obj[0]['artist_id']
-    artist_name = Host.objects.filter(id=episode_obj[0]['artist_id']).values('artist_name')[0]['artist_name']
-    album_id = episode_obj[0]['album_id']
-    album_title = Season.objects.filter(id=episode_obj[0]['album_id']).values('album_title')[0]['album_title']
-    album_cover = Season.objects.filter(id=episode_obj[0]['album_id']).values('album_cover')[0]['album_cover']
-    genre_id = episode_obj[0]['genre_id']
-    genre_title = PodcastCategory.objects.filter(id=episode_obj[0]['genre_id']).values('genre_title')[0]['genre_title']
+    host_id = episode_obj[0]['host_id']
+    host_name = Host.objects.filter(id=host_id).values('host_name')[0]['host_name']
+    season_id = episode_obj[0]['season_id']
+    season_title = Season.objects.filter(id=season_id).values('season_title')[0]['season_title']
+    season_cover = Season.objects.filter(id=season_id).values('season_cover')[0]['season_cover']
+    podcast_category_id = episode_obj[0]['podcast_category_id']
+    podcast_category_title = PodcastCategory.objects.filter(id=podcast_category_id).values('podcast_category_title')[0]['podcast_category_title']
     
-    for variable in ["track_id", "track_name", "track_file", "artist_id", "artist_name", "album_id",\
-        "album_title", "album_cover", "genre_id", "genre_title", "lyrics_id", "lyrics_detail"]:
+    for variable in ["episode_id", "episode_title", "episode_file", "host_id", "host_name", "season_id",\
+        "season_title", "season_cover", "podcast_category_id", "podcast_category_title"]:
         episode_data[variable] = eval(variable)
 
-    return Response({"Track Data": episode_data})
+    return Response({"Episode Data": episode_data})
 
 # @api_view(['GET'])
 # def play_album_tracks(request):

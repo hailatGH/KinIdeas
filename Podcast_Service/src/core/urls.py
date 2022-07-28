@@ -22,7 +22,7 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
 from .router import router
-# from player.players import play_single_track, play_album_tracks, play_playlist_tracks, play_favourite_tracks
+from player.players import play_single_episode
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -41,7 +41,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # path('api-auth/', include('rest_framework.urls')),
     path('api/', include(router.urls)),
-    # path('player/', play_single_track, name='player'),
+    path('player/', play_single_episode, name='player'),
     # path('album_player/', play_album_tracks, name='album_player'),
     # path('playlist_player/', play_playlist_tracks, name='playlist_player'),
     # path('favourite_player/', play_favourite_tracks, name='favourite_player'),
