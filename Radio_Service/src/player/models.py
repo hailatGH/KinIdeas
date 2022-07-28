@@ -16,7 +16,7 @@ class Station(models.Model):
     station_name = models.CharField(max_length=100, default='Unknown Station', null=False, blank= True, unique=True)
     station_frequency = models.FloatField(default=88, null=False, blank=False)
     station_url = models.CharField(max_length=1023, default = "", null=False , blank= False)
-    station_cover = models.FileField(upload_to=Station_Cover_Images, validators=[validators.validate_image_extension], \
+    station_cover = models.ImageField(upload_to=Station_Cover_Images, validators=[validators.validate_image_extension], \
         height_field=None, width_field=None, null=False, blank=True, unique=True)
     station_description = models.TextField(blank=True, null=True, max_length=1023)
     user_id =  models.IntegerField(default=0)
@@ -29,8 +29,8 @@ class Station(models.Model):
 class Favourites(models.Model):
 
     class Meta:
-        verbose_name = _("FavouriteList")
-        verbose_name_plural = _("FavouriteLists")
+        verbose_name = _("Favourite")
+        verbose_name_plural = _("Favourites")
         ordering = ['id']
     
     station_id = models.ForeignKey(Station, default=1, related_name='favouritelist', on_delete=models.CASCADE, \
