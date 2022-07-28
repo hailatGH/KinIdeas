@@ -18,12 +18,12 @@ gcloud iam service-accounts create music-service-account
 SERVICE_ACCOUNT=$(gcloud iam service-accounts list \
     --filter music-service-account --format "value(email)")
 
-gcloud sql instances create kin-project-postgresql-v2 \
-  --project $PROJECT_ID \
-  --database-version POSTGRES_14 \
-  --cpu=2 \
-  --memory=7680MB \
-  --region $REGION
+# gcloud sql instances create kin-project-postgresql-v2 \
+#   --project $PROJECT_ID \
+#   --database-version POSTGRES_14 \
+#   --cpu=2 \
+#   --memory=7680MB \
+#   --region $REGION
 
 gcloud sql databases create music-database --instance kin-project-postgresql-v2
 
@@ -37,6 +37,10 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
 gcloud projects add-iam-policy-binding $PROJECT_ID \
     --member serviceAccount:${SERVICE_ACCOUNT} \
     --role roles/storage.admin
+
+gcloud projects add-iam-policy-binding ${PROJECT_ID} \
+     --member serviceAccount:${SERVICE_ACCOUNT} \
+     --role roles/secretmanager.secretAccessor
 
 GS_BUCKET_NAME=${PROJECT_ID}-storage
 gsutil mb -l ${REGION} gs://${GS_BUCKET_NAME}
@@ -70,12 +74,9 @@ echo -n "${music_admin_password}" | gcloud secrets create music_admin_password -
 gcloud secrets add-iam-policy-binding music_admin_password \
   --member serviceAccount:${CLOUDBUILD} --role roles/secretmanager.secretAccessor
 
-gcloud builds submit --region=$REGION --pack image=gcr.io/${PROJECT_ID}/music_service_image
+gcloud builds submit --region=${REGION} --pack image=gcr.io/${PROJECT_ID}/music_service_image
 
-gcloud builds submit --region=$REGION --config migrate.yaml --substitutions _REGION=$REGION
-
-gcloud projects add-iam-policy-binding ${PROJECT_ID} \
-     --member serviceAccount:${SERVICE_ACCOUNT} --role roles/secretmanager.secretAccessor
+gcloud builds submit --region=${REGION} --config migrate.yaml --substitutions _REGION=$REGION
 
 gcloud run deploy music-service \
   --platform managed \
@@ -103,11 +104,11 @@ gcloud run services update music-service \
 
 gcloud secrets versions access latest --secret music_admin_password && echo ""
 
-gcloud builds submit --region=$REGION --pack image=gcr.io/${PROJECT_ID}/music_service_image
+# gcloud builds submit --region=$REGION --pack image=gcr.io/${PROJECT_ID}/music_service_image
 
-gcloud builds submit --region=$REGION --config migrate.yaml --substitutions _REGION=$REGION
+# gcloud builds submit --region=$REGION --config migrate.yaml --substitutions _REGION=$REGION
 
-gcloud run services update music-service \
-  --platform managed \
-  --region $REGION \
-  --image gcr.io/${PROJECT_ID}/music_service_image
+# gcloud run services update music-service \
+#   --platform managed \
+#   --region $REGION \
+#   --image gcr.io/${PROJECT_ID}/music_service_image
