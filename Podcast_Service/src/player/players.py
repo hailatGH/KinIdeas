@@ -62,48 +62,44 @@ def play_season_episodes(request):
 
     return Response({"Album Data": season_data})
 
-# @api_view(['GET'])
-# def play_playlist_tracks(request):
-#     playlist_data = {}
-#     tracks = {}
+@api_view(['GET'])
+def play_playlist_episodes(request):
+    playlist_data = {}
+    episodes = {}
 
-#     playlist_obj = PlayList.objects.filter(id=request.query_params['playlist']).values('id', 'playlist_name', 'user_id')
-#     playlist_id = playlist_obj[0]['id']
-#     playlist_name = playlist_obj[0]['playlist_name']
-#     user_id = playlist_obj[0]['user_id']
+    playlist_obj = PlayList.objects.filter(id=request.query_params['playlist']).values('id', 'playlist_name', 'user_id')
+    playlist_id = playlist_obj[0]['id']
+    playlist_name = playlist_obj[0]['playlist_name']
+    user_id = playlist_obj[0]['user_id']
 
-#     for variable in ["playlist_id", "playlist_name", "user_id"]:
-#         playlist_data[variable] = eval(variable)
+    for variable in ["playlist_id", "playlist_name", "user_id"]:
+        playlist_data[variable] = eval(variable)
 
-#     playlist_tracks_obj = PlayListTracks.objects.filter(playlist_id=playlist_id).values('playlist_id', 'track_id')
+    playlist_episodes_obj = PlayListEpisodes.objects.filter(playlist_id=playlist_id).values('playlist_id', 'episode_id')
 
-#     for i in range(len(playlist_tracks_obj)):
-#         track_data = {}
+    for i in range(len(playlist_episodes_obj)):
+        episode_data = {}
     
-#         track_obj = Track.objects.filter(id=playlist_tracks_obj[i]['track_id']).values('id', 'track_name', 'track_file', 'artist_id', 'album_id', \
-#             "genre_id")
-#         track_id = track_obj[0]['id']
-#         track_name = track_obj[0]['track_name']
-#         track_file = track_obj[0]['track_file']
-#         artist_id = track_obj[0]['artist_id']
-#         artist_name = Artist.objects.filter(id=track_obj[0]['artist_id']).values('artist_name')[0]['artist_name']
-#         album_id = track_obj[0]['album_id']
-#         album_title = Album.objects.filter(id=track_obj[0]['album_id']).values('album_title')[0]['album_title']
-#         album_cover = Album.objects.filter(id=track_obj[0]['album_id']).values('album_cover')[0]['album_cover']
-#         genre_id = track_obj[0]['genre_id']
-#         genre_title = Genre.objects.filter(id=track_obj[0]['genre_id']).values('genre_title')[0]['genre_title']
-#         lyrics_id = Lyrics.objects.filter(track_id=track_id).values('id')[0]['id']
-#         lyrics_detail = Lyrics.objects.filter(track_id=track_id).values('lyrics_detail')[0]['lyrics_detail']
+        episode_obj = Episode.objects.filter(id=playlist_episodes_obj[i]['episode_id']).values('id', 'episode_title', 'episode_file', 'host_id', 'season_id', "podcast_category_id")
+        episode_id = episode_obj[0]['id']
+        episode_title = episode_obj[0]['episode_title']
+        episode_file = episode_obj[0]['episode_file']
+        host_id = episode_obj[0]['host_id']
+        host_name = Host.objects.filter(id=episode_obj[0]['host_id']).values('host_name')[0]['host_name']
+        season_id = episode_obj[0]['season_id']
+        season_title = Season.objects.filter(id=episode_obj[0]['season_id']).values('season_title')[0]['season_title']
+        season_cover = Season.objects.filter(id=episode_obj[0]['season_id']).values('season_cover')[0]['season_cover']
+        podcast_category_id = episode_obj[0]['podcast_category_id']
+        podcast_category_title = PodcastCategory.objects.filter(id=episode_obj[0]['genrpodcast_category_ide_id']).values('podcast_category_title')[0]['podcast_category_title']
 
-#         for variable in ["track_id", "track_name", "track_file", "artist_id", "artist_name", "album_id",\
-#             "album_title", "album_cover", "genre_id", "genre_title", "lyrics_id", "lyrics_detail"]:
-#             track_data[variable] = eval(variable)
+        for variable in ["episode_id", "episode_title", "episode_file", "host_id", "host_name", "season_id", "season_title", "season_cover", "podcast_category_id", "podcast_category_title"]:
+            episode_data[variable] = eval(variable)
         
-#         tracks["Track: " + str(i)] = track_data
+        episodes["Episode: " + str(i)] = episode_data
 
-#     playlist_data["Tracks"] = tracks
+    playlist_data["Episodes"] = episodes
 
-#     return Response({"Playlist Data": playlist_data})
+    return Response({"Playlist Data": playlist_data})
 
 # @api_view(['GET'])
 # def play_favourite_tracks(request):
