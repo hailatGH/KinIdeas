@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from .models import Station, Favourites
 
 @api_view(['GET'])
-def play_single_track(request):
+def play_single_station(request):
     station_data = {}
     
     station_obj = Station.objects.filter(id=request.query_params['station']).values('id', 'station_name', 'station_frequency', 'station_url', 'station_cover')
@@ -20,7 +20,7 @@ def play_single_track(request):
     return Response({"Track Data": station_data})
 
 @api_view(['GET'])
-def play_favourite_tracks(request):
+def play_favourite_stations(request):
     favourite_data = {}
     stations = {}
 
