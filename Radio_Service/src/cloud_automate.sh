@@ -59,7 +59,7 @@ rm .env
 export PROJECTNUM=$(gcloud projects describe ${PROJECT_ID} --format 'value(projectNumber)')
 export CLOUDBUILD=${PROJECTNUM}@cloudbuild.gserviceaccount.com
 
-gcloud secrets add-iam-policy-binding podcast_service_settings \
+gcloud secrets add-iam-policy-binding radio_service_settings \
   --member serviceAccount:${CLOUDBUILD} \
   --role roles/secretmanager.secretAccessor
 
