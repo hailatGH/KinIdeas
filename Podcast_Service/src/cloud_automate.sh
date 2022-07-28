@@ -109,9 +109,9 @@ gcloud run services update podcast-service \
 
 gcloud secrets versions access latest --secret podcast_admin_password && echo ""
 
-# gcloud builds submit --pack image=gcr.io/${PROJECT_ID}/podcast_service_image
+# gcloud builds submit --region=${REGION} --pack image=gcr.io/${PROJECT_ID}/podcast_service_image
 
-# gcloud builds submit --config migrate.yaml --substitutions _REGION=$REGION
+# gcloud builds submit --region=${REGION} --config migrate.yaml --substitutions _REGION=$REGION
 
 # gcloud run services update podcast-service \
 #   --platform managed \
