@@ -72,12 +72,12 @@ gcloud secrets add-iam-policy-binding podcast_admin_password \
 
 gcloud builds submit --region=$REGION --pack image=gcr.io/${PROJECT_ID}/podcast_service_image
 
-gcloud builds submit --config migrate.yaml --substitutions _REGION=$REGION
+gcloud builds submit --region=$REGION --config migrate.yaml --substitutions _REGION=$REGION
 
 gcloud projects add-iam-policy-binding ${PROJECT_ID} \
      --member serviceAccount:${SERVICE_ACCOUNT} --role roles/secretmanager.secretAccessor
 
-gcloud run deploy music-service \
+gcloud run deploy podcast-service \
   --platform managed \
   --region $REGION \
   --image gcr.io/${PROJECT_ID}/podcast_service_image \

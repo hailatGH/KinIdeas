@@ -72,7 +72,7 @@ gcloud secrets add-iam-policy-binding music_admin_password \
 
 gcloud builds submit --region=$REGION --pack image=gcr.io/${PROJECT_ID}/music_service_image
 
-gcloud builds submit --config migrate.yaml --substitutions _REGION=$REGION
+gcloud builds submit --region=$REGION --config migrate.yaml --substitutions _REGION=$REGION
 
 gcloud projects add-iam-policy-binding ${PROJECT_ID} \
      --member serviceAccount:${SERVICE_ACCOUNT} --role roles/secretmanager.secretAccessor
@@ -103,11 +103,11 @@ gcloud run services update music-service \
 
 gcloud secrets versions access latest --secret music_admin_password && echo ""
 
-gcloud builds submit --pack image=gcr.io/${PROJECT_ID}/music_service_image
+# gcloud builds submit --pack image=gcr.io/${PROJECT_ID}/music_service_image
 
-gcloud builds submit --config migrate.yaml --substitutions _REGION=$REGION
+# gcloud builds submit --config migrate.yaml --substitutions _REGION=$REGION
 
-gcloud run services update music-service \
-  --platform managed \
-  --region $REGION \
-  --image gcr.io/${PROJECT_ID}/music_service_image
+# gcloud run services update music-service \
+#   --platform managed \
+#   --region $REGION \
+#   --image gcr.io/${PROJECT_ID}/music_service_image
