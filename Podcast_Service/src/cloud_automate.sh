@@ -43,7 +43,7 @@ gcloud projects add-iam-policy-binding ${PROJECT_ID} \
      --role roles/secretmanager.secretAccessor
 
 GS_BUCKET_NAME=${PROJECT_ID}-storage
-gsutil mb -l ${REGION} gs://${GS_BUCKET_NAME}
+# gsutil mb -l ${REGION} gs://${GS_BUCKET_NAME}
 
 echo DATABASE_URL=\"postgres://podcast_database_admin:${podcast_database_admin_password}@//cloudsql/${PROJECT_ID}:${REGION}:kin-project-postgresql-v2/podcast-database\" > .env
 echo GS_BUCKET_NAME=\"${GS_BUCKET_NAME}\" >> .env
