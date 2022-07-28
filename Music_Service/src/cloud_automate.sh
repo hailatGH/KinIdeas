@@ -52,27 +52,32 @@ echo DEBUG=\"True\" >> .env
 
 gcloud secrets create music_service_settings --data-file .env
 gcloud secrets add-iam-policy-binding music_service_settings \
-  --member serviceAccount:${SERVICE_ACCOUNT} --role roles/secretmanager.secretAccessor
+  --member serviceAccount:${SERVICE_ACCOUNT} \
+  --role roles/secretmanager.secretAccessor
 rm .env
 
 export PROJECTNUM=$(gcloud projects describe ${PROJECT_ID} --format 'value(projectNumber)')
 export CLOUDBUILD=${PROJECTNUM}@cloudbuild.gserviceaccount.com
 
 gcloud secrets add-iam-policy-binding music_service_settings \
-  --member serviceAccount:${CLOUDBUILD} --role roles/secretmanager.secretAccessor
+  --member serviceAccount:${CLOUDBUILD} \
+  --role roles/secretmanager.secretAccessor
 
 gcloud projects add-iam-policy-binding ${PROJECT_ID} \
-    --member serviceAccount:${CLOUDBUILD} --role roles/cloudsql.client
+    --member serviceAccount:${CLOUDBUILD} \
+    --role roles/cloudsql.client
 
 gcloud projects add-iam-policy-binding ${PROJECT_ID} \
-    --member serviceAccount:${CLOUDBUILD} --role roles/storage.admin
+    --member serviceAccount:${CLOUDBUILD} \
+    --role roles/storage.admin
 
 music_admin_password="$(cat /dev/urandom | LC_ALL=C tr -dc 'a-zA-Z0-9' | fold -w 30 | head -n 1)"
 
 echo -n "${music_admin_password}" | gcloud secrets create music_admin_password --data-file=-
 
 gcloud secrets add-iam-policy-binding music_admin_password \
-  --member serviceAccount:${CLOUDBUILD} --role roles/secretmanager.secretAccessor
+  --member serviceAccount:${CLOUDBUILD} \
+  --role roles/secretmanager.secretAccessor
 
 gcloud builds submit --region=${REGION} --pack image=gcr.io/${PROJECT_ID}/music_service_image
 
