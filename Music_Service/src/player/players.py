@@ -1,13 +1,13 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from .models import Artist, Album, Genre, PlayListTracks, Track, Lyrics, PlayList, Favourites
+from .models import Artist, Album, Genre, PlayListTracks, Track, Lyrics, MusicPlayList, MusicFavourites
 
 @api_view(['GET'])
 def play_single_track(request):
     track_data = {}
     
-    track_obj = Track.objects.filter(id=request.query_params['track']).values('id', 'track_name', 'track_file', 'artist_id', 'album_id', \
+    track_obj = Track.objects.filter(id=request.GET['track']).values('id', 'track_name', 'track_file', 'artist_id', 'album_id', \
         "genre_id")
     track_id = track_obj[0]['id']
     track_name = track_obj[0]['track_name']
@@ -71,7 +71,7 @@ def play_playlist_tracks(request):
     playlist_data = {}
     tracks = {}
 
-    playlist_obj = PlayList.objects.filter(id=request.query_params['playlist']).values('id', 'playlist_name', 'user_id')
+    playlist_obj = MusicPlayList.objects.filter(id=request.query_params['playlist']).values('id', 'playlist_name', 'user_id')
     playlist_id = playlist_obj[0]['id']
     playlist_name = playlist_obj[0]['playlist_name']
     user_id = playlist_obj[0]['user_id']
@@ -114,7 +114,7 @@ def play_favourite_tracks(request):
     favourite_data = {}
     tracks = {}
 
-    favourite_obj = Favourites.objects.filter(user_id=request.query_params['user']).values('user_id', 'track_id')
+    favourite_obj = MusicFavourites.objects.filter(user_id=request.query_params['user']).values('user_id', 'track_id')
     user_id = favourite_obj[0]['user_id']
     favourite_data["User"] = user_id
 
