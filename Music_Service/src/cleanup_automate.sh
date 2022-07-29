@@ -1,5 +1,5 @@
 #!/bin/bash
-gcloud iam service-accounts delete music-service-account
+gcloud iam service-accounts delete music-service-account@kin-project-352614.iam.gserviceaccount.com
 gcloud sql databases delete music-database --instance kin-project-postgresql-v2
 gcloud sql users delete music_database_admin --instance kin-project-postgresql-v2
 gcloud secrets delete music_service_settings
