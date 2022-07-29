@@ -22,7 +22,7 @@ def Episode_Files(instance, filename):
         str(instance.episode_title + " - " + filename)])
     # The directory arrangment will be [Media/episode_files/{episode_title}/{filename}]
 
-class Host(models.Model):
+class PodcastHost(models.Model):
     
     class Meta:
         verbose_name = _("Host")
@@ -42,7 +42,7 @@ class Host(models.Model):
         return '%d: %s' % (self.pk, self.host_name)
 
 
-class Season(models.Model):
+class PodcastSeason(models.Model):
     
     class Meta:
         verbose_name = _("Season")
@@ -53,7 +53,7 @@ class Season(models.Model):
     season_cover = models.ImageField(upload_to=Seasons_Cover_Images, validators=[validators.validate_image_extension], \
         height_field=None, width_field=None, null=False, blank=True, unique=True)
     season_description = models.TextField(max_length=1023, blank=True, null=True)
-    host_id = models.ForeignKey(Host, default=1, related_name='seasons', on_delete=models.DO_NOTHING)
+    host_id = models.ForeignKey(PodcastHost, default=1, related_name='seasons', on_delete=models.DO_NOTHING)
     user_id =  models.IntegerField(default=1)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -79,7 +79,7 @@ class PodcastCategory(models.Model):
     def __str__(self):
         return '%d: %s' % (self.pk, self.podcast_category_title)
 
-class Episode(models.Model):
+class PodcastEpisode(models.Model):
     
     class Meta:
         verbose_name = _("Episode")
@@ -92,8 +92,8 @@ class Episode(models.Model):
         blank=True, unique=True)
     episode_status = models.BooleanField(default=False)
     episode_release_date=models.DateTimeField()
-    host_id = models.ForeignKey(Host, default=1, related_name='episode_h', on_delete=models.DO_NOTHING)
-    season_id = models.ForeignKey(Season, default=1, related_name='episode_s', on_delete=models.DO_NOTHING)
+    host_id = models.ForeignKey(PodcastHost, default=1, related_name='episode_h', on_delete=models.DO_NOTHING)
+    season_id = models.ForeignKey(PodcastSeason, default=1, related_name='episode_s', on_delete=models.DO_NOTHING)
     podcast_category_id = models.ForeignKey(PodcastCategory, default=1, related_name='episode_c', on_delete=models.DO_NOTHING)
     user_id =  models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -117,7 +117,7 @@ class PodcastPlayList(models.Model):
     def __str__(self):
         return '%d: %s' % (self.pk, self.playlist_name)
 
-class PlayListEpisodes(models.Model):
+class PodcastPlayListEpisodes(models.Model):
 
     class Meta:
         verbose_name = _("PlayListTrack")
@@ -126,7 +126,7 @@ class PlayListEpisodes(models.Model):
     
     playlist_id = models.ForeignKey(PodcastPlayList, default=1, related_name='playlist_na', on_delete=models.CASCADE, \
         null=False, blank=False)
-    episode_id = models.ForeignKey(Episode, default=1, related_name='playlist_e', on_delete=models.CASCADE, null=False, \
+    episode_id = models.ForeignKey(PodcastEpisode, default=1, related_name='playlist_e', on_delete=models.CASCADE, null=False, \
         blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -141,7 +141,7 @@ class PodcastFavourites(models.Model):
         verbose_name_plural = _("PodcastFavourites")
         ordering = ['id']
     
-    episode_id = models.ForeignKey(Episode, default=1, related_name='favouritelist', on_delete=models.CASCADE, \
+    episode_id = models.ForeignKey(PodcastEpisode, default=1, related_name='favouritelist', on_delete=models.CASCADE, \
         null=False, blank=False)
     user_id =  models.IntegerField(default=1, null=False, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)

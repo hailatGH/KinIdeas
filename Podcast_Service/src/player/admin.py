@@ -1,13 +1,13 @@
 from django.contrib import admin
 
-from .models import Host, Season, Episode, PodcastCategory, PlayList, PlayListEpisodes, Favourites
+from .models import PodcastHost, PodcastSeason, PodcastEpisode, PodcastCategory, PodcastPlayList, PodcastPlayListEpisodes, PodcastFavourites
 
 # Register your models here.
 
-admin.site.register(Host)
-admin.site.register(Season)
-admin.site.register(Episode)
+admin.site.register(PodcastHost)
+admin.site.register(PodcastSeason)
+admin.site.register(PodcastEpisode)
 admin.site.register(PodcastCategory)
-admin.site.register(PlayList)
-admin.site.register(PlayListEpisodes)
-admin.site.register(Favourites)
+admin.site.register(PodcastPlayList)
+admin.site.register(PodcastPlayListEpisodes)
+admin.site.register(PodcastFavourites)

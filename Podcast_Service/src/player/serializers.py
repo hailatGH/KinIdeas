@@ -1,17 +1,17 @@
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
 
-from .models import Host, Season, PodcastCategory, Episode, PlayList, PlayListEpisodes, Favourites
+from .models import PodcastHost, PodcastSeason, PodcastCategory, PodcastEpisode, PodcastPlayList, PodcastPlayListEpisodes, PodcastFavourites
 
 class FavouritesSerializer(serializers.ModelSerializer):
     
     class Meta:
-        model = Favourites
+        model = PodcastFavourites
         fields = '__all__'
 
         validators = [
             UniqueTogetherValidator(
-                queryset=Favourites.objects.all(),
+                queryset=PodcastFavourites.objects.all(),
                 fields=['episode_id', 'user_id']
             )
         ]
@@ -19,12 +19,12 @@ class FavouritesSerializer(serializers.ModelSerializer):
 class PlayListEpisodesSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = PlayListEpisodes
+        model = PodcastPlayListEpisodes
         fields = '__all__'
 
         validators = [
             UniqueTogetherValidator(
-                queryset=PlayListEpisodes.objects.all(),
+                queryset=PodcastPlayListEpisodes.objects.all(),
                 fields=['playlist_id', 'episode_id']
             )
         ]
@@ -32,12 +32,12 @@ class PlayListEpisodesSerializer(serializers.ModelSerializer):
 class PlayListSerializer(serializers.ModelSerializer):
     
     class Meta:
-        model = PlayList
+        model = PodcastPlayList
         fields = '__all__'
 
         validators = [
             UniqueTogetherValidator(
-                queryset=PlayList.objects.all(),
+                queryset=PodcastPlayList.objects.all(),
                 fields=['playlist_name', 'user_id']
             )
         ]
@@ -45,7 +45,7 @@ class PlayListSerializer(serializers.ModelSerializer):
 class EpisodeSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Episode
+        model = PodcastEpisode
         fields = '__all__'
 
 class PodcastCategorySerializer(serializers.ModelSerializer):
@@ -57,11 +57,11 @@ class PodcastCategorySerializer(serializers.ModelSerializer):
 class SeasonSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Season
+        model = PodcastSeason
         fields = '__all__'
 
 class HostSerializer(serializers.ModelSerializer):
     
     class Meta:
-        model = Host
+        model = PodcastHost
         fields = '__all__'

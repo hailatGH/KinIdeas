@@ -2,7 +2,7 @@ from requests import Response
 from rest_framework import viewsets
 from rest_framework.pagination import PageNumberPagination
 
-from .models import Host, Season, PodcastCategory, Episode, PlayList, PlayListEpisodes, Favourites
+from .models import PodcastHost, PodcastSeason, PodcastCategory, PodcastEpisode, PodcastPlayList, PodcastPlayListEpisodes, PodcastFavourites
 from .serializers import HostSerializer, SeasonSerializer, PodcastCategorySerializer, EpisodeSerializer,\
     PlayListSerializer, PlayListEpisodesSerializer, FavouritesSerializer
 
@@ -16,12 +16,12 @@ class StandardResultsSetPagination(PageNumberPagination):
 
 class HostViewSet(viewsets.ModelViewSet):
     
-    queryset = Host.objects.all()
+    queryset = PodcastHost.objects.all()
     serializer_class = HostSerializer
 
 class SeasonViewSet(viewsets.ModelViewSet):
     
-    queryset = Season.objects.all()
+    queryset = PodcastSeason.objects.all()
     serializer_class = SeasonSerializer
 
 class PodcastCategoryViewSet(viewsets.ModelViewSet):
@@ -31,23 +31,23 @@ class PodcastCategoryViewSet(viewsets.ModelViewSet):
 
 class EpisodeViewSet(viewsets.ModelViewSet):
     
-    queryset = Episode.objects.all()
+    queryset = PodcastEpisode.objects.all()
     serializer_class = EpisodeSerializer
 
 class PlayListViewSet(viewsets.ModelViewSet):
     
-    queryset = PlayList.objects.all()
+    queryset = PodcastPlayList.objects.all()
     serializer_class = PlayListSerializer
     pagination_class = StandardResultsSetPagination
 
 class PlayListEpisodesViewSet(viewsets.ModelViewSet):
     
-    queryset = PlayListEpisodes.objects.all()
+    queryset = PodcastPlayListEpisodes.objects.all()
     serializer_class = PlayListEpisodesSerializer
     pagination_class = StandardResultsSetPagination
 
 class FavouritesViewSet(viewsets.ModelViewSet):
 
-    queryset = Favourites.objects.all()
+    queryset = PodcastFavourites.objects.all()
     serializer_class = FavouritesSerializer
     pagination_class = StandardResultsSetPagination
