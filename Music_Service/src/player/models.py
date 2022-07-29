@@ -33,7 +33,7 @@ class Artist(models.Model):
     artist_name = models.CharField(max_length=100, default=_("Unknown Artist"), null=False, blank=True, unique=True)
     artist_title = models.CharField(max_length=100, default=_("Unknown"), null=False, blank=True)
     artist_cover = models.ImageField(upload_to=Artists_Profile_Images, validators=[validators.validate_image_extension], \
-        height_field=None, width_field=None, null=False, blank=True, unique=True)
+        height_field=None, width_field=None, null=False, blank=False, unique=True)
     artist_description = models.TextField(max_length=1023, blank=True, null=True)
     user_id =  models.IntegerField(default=1)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -51,7 +51,7 @@ class Album(models.Model):
 
     album_title = models.CharField(max_length=100, default='Unknown Album', null=False, blank=True, unique=True)
     album_cover = models.ImageField(upload_to=Albums_Cover_Images, validators=[validators.validate_image_extension], \
-        height_field=None, width_field=None, null=False, blank=True, unique=True)
+        height_field=None, width_field=None, null=False, blank=False, unique=True)
     album_description = models.TextField(max_length=1023, blank=True, null=True)
     artist_id = models.ForeignKey(Artist, default=1, related_name='albums', on_delete=models.DO_NOTHING)
     user_id =  models.IntegerField(default=1)
@@ -70,7 +70,7 @@ class Genre(models.Model):
 
     genre_title = models.CharField(max_length=100, default='Unknown Genre', null=False, blank=True, unique=True)
     genre_cover = models.ImageField(upload_to=Genres_Cover_Images, validators=[validators.validate_image_extension], \
-        height_field=None, width_field=None, null=False, blank=True, unique=True)
+        height_field=None, width_field=None, null=False, blank=False, unique=True)
     genre_description = models.TextField(blank=True, null=True, max_length=1023)
     user_id =  models.IntegerField(default=1)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -89,7 +89,7 @@ class Track(models.Model):
     track_name = models.CharField(max_length=100, default='Unknown Track', null=False, blank=True, unique=True)
     track_description = models.TextField(blank=True, null=True, max_length=1023)
     track_file = models.FileField(upload_to=Track_Files, validators=[validators.validate_track_extension], null=False, \
-        blank=True, unique=True)
+        blank=False, unique=True)
     track_status = models.BooleanField(default=False)
     track_release_date=models.DateTimeField()
     artist_id = models.ForeignKey(Artist, default=1, related_name='tracks_ar', on_delete=models.DO_NOTHING)
