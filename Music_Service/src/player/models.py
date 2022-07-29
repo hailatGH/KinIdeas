@@ -23,7 +23,7 @@ def Track_Files(instance, filename):
     return '/'.join(['Media_Files', 'Track_Files', str(instance.artist_id), str(instance.album_id), filename])
     # The directory arrangment will be [media/Track_Files/{track_name}/{filename}]
 
-class Artist(models.Model):
+class MusicArtist(models.Model):
     
     class Meta:
         verbose_name = _("Artist")
@@ -42,7 +42,7 @@ class Artist(models.Model):
     def __str__(self):
         return '%d: %s' % (self.pk, self.artist_name)
 
-class Album(models.Model):
+class MusicAlbum(models.Model):
     
     class Meta:
         verbose_name = _("Album")
@@ -53,7 +53,7 @@ class Album(models.Model):
     album_cover = models.ImageField(upload_to=Albums_Cover_Images, validators=[validators.validate_image_extension], \
         height_field=None, width_field=None, null=False, blank=False, unique=True)
     album_description = models.TextField(max_length=1023, blank=True, null=True)
-    artist_id = models.ForeignKey(Artist, default=1, related_name='albums', on_delete=models.DO_NOTHING)
+    artist_id = models.ForeignKey(MusicArtist, default=1, related_name='albums', on_delete=models.DO_NOTHING)
     user_id =  models.IntegerField(default=1)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -61,7 +61,7 @@ class Album(models.Model):
     def __str__(self):
         return '%d: %s' % (self.pk, self.album_title)
 
-class Genre(models.Model):
+class MusicGenre(models.Model):
 
     class Meta:
         verbose_name = _("Genre")
@@ -79,7 +79,7 @@ class Genre(models.Model):
     def __str__(self):
         return '%d: %s' % (self.pk, self.genre_title)
 
-class Track(models.Model):
+class MusicTrack(models.Model):
     
     class Meta:
         verbose_name = _("Track")
@@ -92,9 +92,9 @@ class Track(models.Model):
         blank=False, unique=True)
     track_status = models.BooleanField(default=False)
     track_release_date=models.DateTimeField()
-    artist_id = models.ForeignKey(Artist, default=1, related_name='tracks_ar', on_delete=models.DO_NOTHING)
-    album_id = models.ForeignKey(Album, default=1, related_name='tracks_al', on_delete=models.DO_NOTHING)
-    genre_id = models.ForeignKey(Genre, default=1, related_name='tracks_g', on_delete=models.DO_NOTHING)
+    artist_id = models.ForeignKey(MusicArtist, default=1, related_name='tracks_ar', on_delete=models.DO_NOTHING)
+    album_id = models.ForeignKey(MusicAlbum, default=1, related_name='tracks_al', on_delete=models.DO_NOTHING)
+    genre_id = models.ForeignKey(MusicGenre, default=1, related_name='tracks_g', on_delete=models.DO_NOTHING)
     user_id =  models.IntegerField(default=1)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -102,7 +102,7 @@ class Track(models.Model):
     def __str__(self):
         return '%d: %s' % (self.pk, self.track_name)
 
-class Lyrics(models.Model):
+class MusicLyrics(models.Model):
 
     class Meta:
         verbose_name = _("Lyrics")
@@ -111,7 +111,7 @@ class Lyrics(models.Model):
 
     lyrics_title = models.CharField(max_length=100, default='Unknown Lyrics', null=False, blank=True)
     lyrics_detail = models.TextField(blank=True, null=False, unique=True)
-    track_id = models.ForeignKey(Track, default=1, related_name='lyrics', on_delete=models.CASCADE, unique=True)
+    track_id = models.ForeignKey(MusicTrack, default=1, related_name='lyrics', on_delete=models.CASCADE, unique=True)
     user_id =  models.IntegerField(default=1)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -134,7 +134,7 @@ class MusicPlayList(models.Model):
     def __str__(self):
         return '%d: %s' % (self.pk, self.playlist_name)
 
-class PlayListTracks(models.Model):
+class MusicPlayListTracks(models.Model):
 
     class Meta:
         verbose_name = _("PlayListTrack")
@@ -143,7 +143,7 @@ class PlayListTracks(models.Model):
     
     playlist_id = models.ForeignKey(MusicPlayList, default=1, related_name='playlist_na', on_delete=models.CASCADE, \
         null=False, blank=False)
-    track_id = models.ForeignKey(Track, default=1, related_name='playlist_t', on_delete=models.CASCADE, null=False, \
+    track_id = models.ForeignKey(MusicTrack, default=1, related_name='playlist_t', on_delete=models.CASCADE, null=False, \
         blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -158,7 +158,7 @@ class MusicFavourites(models.Model):
         verbose_name_plural = _("MusicFavourites")
         ordering = ['id']
     
-    track_id = models.ForeignKey(Track, default=1, related_name='favouritelist', on_delete=models.CASCADE, \
+    track_id = models.ForeignKey(MusicTrack, default=1, related_name='favouritelist', on_delete=models.CASCADE, \
         null=False, blank=False)
     user_id =  models.IntegerField(default=1, null=False, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
