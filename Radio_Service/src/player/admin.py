@@ -1,8 +1,8 @@
 from django.contrib import admin
 
-from .models import Station, Favourites
+from .models import RadioStation, RadioStationFavourites
 
 # Register your models here.
 
-admin.site.register(Station)
-admin.site.register(Favourites)
+admin.site.register(RadioStation)
+admin.site.register(RadioStationFavourites)

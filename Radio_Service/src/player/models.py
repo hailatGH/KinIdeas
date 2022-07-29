@@ -6,7 +6,7 @@ def Station_Cover_Images(instance, filename):
     return '/'.join(['Media_Files', 'Station_Cover_Images', str(instance.station_name), str(instance.station_name + " - " + filename)])
     # The directory arrangment will be [media/Albums_Profile_Images/{album_title}/{filename}]
 
-class Station(models.Model):
+class RadioStation(models.Model):
     
     class Meta:
         verbose_name = _("Radio")
@@ -26,14 +26,14 @@ class Station(models.Model):
     def __str__(self):
         return '%d: %s' % (self.pk, self.station_name)
 
-class StationFavourites(models.Model):
+class RadioStationFavourites(models.Model):
 
     class Meta:
         verbose_name = _("StationFavourite")
         verbose_name_plural = _("StationFavourites")
         ordering = ['id']
     
-    station_id = models.ForeignKey(Station, default=1, related_name='favouritelist', on_delete=models.CASCADE, \
+    station_id = models.ForeignKey(RadioStation, default=1, related_name='favouritelist', on_delete=models.CASCADE, \
         null=False, blank=False)
     user_id =  models.IntegerField(default=1, null=False, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)

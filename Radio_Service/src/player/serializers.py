@@ -1,22 +1,22 @@
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
 
-from .models import Station, Favourites
+from .models import RadioStation, RadioStationFavourites
 
 class StationSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Station
+        model = RadioStation
         fields = '__all__'
 
 class FavouritesSerializer(serializers.ModelSerializer):
     
     class Meta:
-        model = Favourites
+        model = RadioStationFavourites
         fields = '__all__'
 
         validators = [
             UniqueTogetherValidator(
-                queryset=Favourites.objects.all(),
+                queryset=RadioStationFavourites.objects.all(),
                 fields=['station_id', 'user_id']
             )
         ]

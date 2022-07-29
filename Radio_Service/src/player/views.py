@@ -1,11 +1,16 @@
 from rest_framework import viewsets
 
-from .models import Station
-from .serializers import StationSerializer
+from .models import RadioStation, RadioStationFavourites
+from .serializers import StationSerializer, FavouritesSerializer
 
 # Create your views here.
 
 class StationViewSet(viewsets.ModelViewSet):
     
-    queryset = Station.objects.all()
+    queryset = RadioStation.objects.all()
     serializer_class = StationSerializer
+
+class FavouriteViewSet(viewsets.ModelViewSet):
+    
+    queryset = RadioStationFavourites.objects.all()
+    serializer_class = FavouritesSerializer
