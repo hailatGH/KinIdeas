@@ -102,11 +102,11 @@ class Episode(models.Model):
     def __str__(self):
         return '%d: %s' % (self.pk, self.episode_title)
 
-class PlayList(models.Model):
+class PodcastPlayList(models.Model):
 
     class Meta:
-        verbose_name = _("PlayList")
-        verbose_name_plural = _("PlayLists")
+        verbose_name = _("PodcastPlayList")
+        verbose_name_plural = _("PodcastPlayLists")
         ordering = ['id']
     
     playlist_name = models.CharField(max_length=100, default='Unknown PlayList', null=False, blank=False)
@@ -124,7 +124,7 @@ class PlayListEpisodes(models.Model):
         verbose_name_plural = _("PlayListTracks")
         ordering = ['id']
     
-    playlist_id = models.ForeignKey(PlayList, default=1, related_name='playlist_na', on_delete=models.CASCADE, \
+    playlist_id = models.ForeignKey(PodcastPlayList, default=1, related_name='playlist_na', on_delete=models.CASCADE, \
         null=False, blank=False)
     episode_id = models.ForeignKey(Episode, default=1, related_name='playlist_e', on_delete=models.CASCADE, null=False, \
         blank=False)
@@ -134,11 +134,11 @@ class PlayListEpisodes(models.Model):
     def __str__(self):
         return '%d: %s' % (self.pk)
 
-class Favourites(models.Model):
+class PodcastFavourites(models.Model):
 
     class Meta:
-        verbose_name = _("FavouriteList")
-        verbose_name_plural = _("FavouriteLists")
+        verbose_name = _("PodcastFavourite")
+        verbose_name_plural = _("PodcastFavourites")
         ordering = ['id']
     
     episode_id = models.ForeignKey(Episode, default=1, related_name='favouritelist', on_delete=models.CASCADE, \

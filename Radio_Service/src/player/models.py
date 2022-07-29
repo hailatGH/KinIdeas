@@ -26,11 +26,11 @@ class Station(models.Model):
     def __str__(self):
         return '%d: %s' % (self.pk, self.station_name)
 
-class Favourites(models.Model):
+class StationFavourites(models.Model):
 
     class Meta:
-        verbose_name = _("Favourite")
-        verbose_name_plural = _("Favourites")
+        verbose_name = _("StationFavourite")
+        verbose_name_plural = _("StationFavourites")
         ordering = ['id']
     
     station_id = models.ForeignKey(Station, default=1, related_name='favouritelist', on_delete=models.CASCADE, \

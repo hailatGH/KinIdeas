@@ -119,11 +119,11 @@ class Lyrics(models.Model):
     def __str__(self):
         return '%d: %s' % (self.pk, self.lyrics_title)
 
-class PlayList(models.Model):
+class MusicPlayList(models.Model):
 
     class Meta:
-        verbose_name = _("PlayList")
-        verbose_name_plural = _("PlayLists")
+        verbose_name = _("MusicPlayList")
+        verbose_name_plural = _("MusicPlayLists")
         ordering = ['id']
     
     playlist_name = models.CharField(max_length=100, default='Unknown PlayList', null=False, blank=False)
@@ -141,7 +141,7 @@ class PlayListTracks(models.Model):
         verbose_name_plural = _("PlayListTracks")
         ordering = ['id']
     
-    playlist_id = models.ForeignKey(PlayList, default=1, related_name='playlist_na', on_delete=models.CASCADE, \
+    playlist_id = models.ForeignKey(MusicPlayList, default=1, related_name='playlist_na', on_delete=models.CASCADE, \
         null=False, blank=False)
     track_id = models.ForeignKey(Track, default=1, related_name='playlist_t', on_delete=models.CASCADE, null=False, \
         blank=False)
@@ -151,11 +151,11 @@ class PlayListTracks(models.Model):
     def __str__(self):
         return '%d: %s' % (self.pk)
 
-class Favourites(models.Model):
+class MusicFavourites(models.Model):
 
     class Meta:
-        verbose_name = _("FavouriteList")
-        verbose_name_plural = _("FavouriteLists")
+        verbose_name = _("MusicFavourite")
+        verbose_name_plural = _("MusicFavourites")
         ordering = ['id']
     
     track_id = models.ForeignKey(Track, default=1, related_name='favouritelist', on_delete=models.CASCADE, \
