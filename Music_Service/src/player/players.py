@@ -7,7 +7,7 @@ from .models import MusicArtist, MusicAlbum, MusicGenre, MusicPlayListTracks, Mu
 def play_single_track(request):
     track_data = {}
     
-    track_obj = MusicTrack.objects.filter(id=request.GET['track']).values('id', 'track_name', 'track_file', 'artist_id', 'album_id', \
+    track_obj = MusicTrack.objects.filter(id=request.query_params['track']).values('id', 'track_name', 'track_file', 'artist_id', 'album_id', \
         "genre_id")
     track_id = track_obj[0]['id']
     track_name = track_obj[0]['track_name']

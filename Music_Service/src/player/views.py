@@ -2,7 +2,7 @@ from requests import Response
 from rest_framework import viewsets
 from rest_framework.pagination import PageNumberPagination
 
-from .models import Artist, Album, Genre, Track, Lyrics, MusicPlayList, PlayListTracks, MusicFavourites
+from .models import MusicArtist, MusicAlbum, MusicGenre, MusicTrack, MusicLyrics, MusicPlayList, MusicPlayListTracks, MusicFavourites
 from .serializers import ArtistSerializer, AlbumSerializer, GenreSerializer, TrackSerializer, \
     LyricsSerializer, FavouritesSerializer, PlayListSerializer, PlayListTracksSerializer
 
@@ -16,32 +16,32 @@ class StandardResultsSetPagination(PageNumberPagination):
 
 class ArtistViewSet(viewsets.ModelViewSet):
     
-    queryset = Artist.objects.all()
+    queryset = MusicArtist.objects.all()
     serializer_class = ArtistSerializer
     pagination_class = StandardResultsSetPagination
 
 class AlbumViewSet(viewsets.ModelViewSet):
     
-    queryset = Album.objects.all()
+    queryset = MusicAlbum.objects.all()
     serializer_class = AlbumSerializer
     pagination_class = StandardResultsSetPagination
 
 class GenreViewSet(viewsets.ModelViewSet):
     
-    queryset = Genre.objects.all()
+    queryset = MusicGenre.objects.all()
     serializer_class = GenreSerializer
     pagination_class = StandardResultsSetPagination
 
 class TrackViewSet(viewsets.ModelViewSet):
     
-    queryset = Track.objects.all()
+    queryset = MusicTrack.objects.all()
     serializer_class = TrackSerializer
     pagination_class = StandardResultsSetPagination
 
 
 class LyricsViewSet(viewsets.ModelViewSet):
     
-    queryset = Lyrics.objects.all()
+    queryset = MusicLyrics.objects.all()
     serializer_class = LyricsSerializer
     pagination_class = StandardResultsSetPagination
 
@@ -53,7 +53,7 @@ class PlayListViewSet(viewsets.ModelViewSet):
 
 class PlayListTracksViewSet(viewsets.ModelViewSet):
     
-    queryset = PlayListTracks.objects.all()
+    queryset = MusicPlayListTracks.objects.all()
     serializer_class = PlayListTracksSerializer
     pagination_class = StandardResultsSetPagination
 

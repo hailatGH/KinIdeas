@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
 
-from .models import Album, Artist, Track, Genre, Lyrics, MusicPlayList, PlayListTracks, MusicFavourites
+from .models import MusicAlbum, MusicArtist, MusicTrack, MusicGenre, MusicLyrics, MusicPlayList, MusicPlayListTracks, MusicFavourites
 
 class FavouritesSerializer(serializers.ModelSerializer):
     
@@ -19,12 +19,12 @@ class FavouritesSerializer(serializers.ModelSerializer):
 class PlayListTracksSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = PlayListTracks
+        model = MusicPlayListTracks
         fields = '__all__'
 
         validators = [
             UniqueTogetherValidator(
-                queryset=PlayListTracks.objects.all(),
+                queryset=MusicPlayListTracks.objects.all(),
                 fields=['playlist_id', 'track_id']
             )
         ]
@@ -45,29 +45,29 @@ class PlayListSerializer(serializers.ModelSerializer):
 class LyricsSerializer(serializers.ModelSerializer):
     
     class Meta:
-        model = Lyrics
+        model = MusicLyrics
         fields = '__all__'
 
 class TrackSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Track
+        model = MusicTrack
         fields = '__all__'
 
 class GenreSerializer(serializers.ModelSerializer):
 
      class Meta:
-        model = Genre
+        model = MusicGenre
         fields = '__all__'
 
 class AlbumSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Album
+        model = MusicAlbum
         fields = '__all__'
 
 class ArtistSerializer(serializers.ModelSerializer):
     
     class Meta:
-        model = Artist
+        model = MusicArtist
         fields = '__all__'
