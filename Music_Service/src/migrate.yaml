@@ -21,7 +21,8 @@ steps:
       - "bash"
       - "-c"
       - "(/cloudsql/cloud_sql_proxy -instances=${_INSTANCE_CONNECTION_NAME}=tcp:5432 & sleep 2) && 
-          python3 manage.py makemigrations &&
+          python3 manage.py makemigrations player &&
+          python3 manage.py makemigrations player &&
           python3 manage.py migrate --run-syncdb && 
           python3 manage.py collectstatic --noinput"
 
