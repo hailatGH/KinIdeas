@@ -24,7 +24,7 @@ def play_single_episode(request):
         "season_title", "season_cover", "podcast_category_id", "podcast_category_title"]:
         episode_data[variable] = eval(variable)
 
-    return Response({"Episode Data": episode_data})
+    return Response({"EpisodeData": episode_data})
 
 @api_view(['GET'])
 def play_season_episodes(request):
@@ -56,11 +56,11 @@ def play_season_episodes(request):
         for variable in ["episode_id", "episode_title", "episode_file", "podcast_category_id", "podcast_category_title"]:
             episode_data[variable] = eval(variable)
 
-        episodes["Episode: " + str(i)] = episode_data
+        episodes["Episode_" + str(i)] = episode_data
 
     season_data["Episodes"] = episodes
 
-    return Response({"Album Data": season_data})
+    return Response({"SeasonData": season_data})
 
 @api_view(['GET'])
 def play_playlist_episodes(request):
@@ -95,11 +95,11 @@ def play_playlist_episodes(request):
         for variable in ["episode_id", "episode_title", "episode_file", "host_id", "host_name", "season_id", "season_title", "season_cover", "podcast_category_id", "podcast_category_title"]:
             episode_data[variable] = eval(variable)
         
-        episodes["Episode: " + str(i)] = episode_data
+        episodes["Episode_" + str(i)] = episode_data
 
     playlist_data["Episodes"] = episodes
 
-    return Response({"Playlist Data": playlist_data})
+    return Response({"PlaylistData": playlist_data})
 
 @api_view(['GET'])
 def play_favourite_episodes(request):
@@ -128,9 +128,9 @@ def play_favourite_episodes(request):
         for variable in ["episode_id", "episode_title", "episode_file", "host_id", "host_name", "season_id", "season_title", "season_cover", "podcast_category_id", "podcast_category_title"]:
             episode_data[variable] = eval(variable)
         
-        episodes["Episode: " + str(i)] = episode_data
+        episodes["Episode_" + str(i)] = episode_data
 
 
     favourite_data["Episodes"] = episodes
         
-    return Response({"Favourite Data": favourite_data})
+    return Response({"FavouriteData": favourite_data})
