@@ -80,7 +80,10 @@ def play_album_tracks(request):
         album_data = "No Album Data Found"
         tracks = "No Track Data Found"
 
-    album_data["Tracks"] = tracks
+    try:
+        album_data["Tracks"] = tracks
+    except:
+        pass
 
     return Response({"AlbumData": album_data})
 
