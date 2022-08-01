@@ -53,6 +53,9 @@ def play_favourite_stations(request):
         favourite_data = "No Favourite Data Found"
         stations = "No Station Data Found"
 
-    favourite_data["Stations"] = stations
+    try:
+        favourite_data["Stations"] = stations
+    except:
+        pass
         
     return Response({"FavouriteData": favourite_data})

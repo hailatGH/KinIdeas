@@ -135,7 +135,10 @@ def play_playlist_tracks(request):
         playlist_data = "No Playlist Data Found"
         tracks = "No Track Data Found"
 
-    playlist_data["Tracks"] = tracks
+    try:
+        playlist_data["Tracks"] = tracks
+    except:
+        pass
 
     return Response({"PlaylistData": playlist_data})
 
@@ -181,6 +184,9 @@ def play_favourite_tracks(request):
         favourite_data = "No Favourite Data Found"
         tracks = "No Track Data Found"
 
-    favourite_data["Tracks"] = tracks
+    try:
+       favourite_data["Tracks"] = tracks
+    except:
+        pass
         
     return Response({"FavouriteData": favourite_data})

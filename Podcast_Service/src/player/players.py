@@ -67,7 +67,10 @@ def play_season_episodes(request):
         season_data = "No Season Data Found"
         episodes = "No Episode Data Found"
 
-    season_data["Episodes"] = episodes
+    try:
+        season_data["Episodes"] = episodes
+    except:
+        pass
 
     return Response({"SeasonData": season_data})
 
@@ -111,7 +114,10 @@ def play_playlist_episodes(request):
         playlist_data = "No Season Data Found"
         episodes = "No Episode Data Found"
 
-    playlist_data["Episodes"] = episodes
+    try:
+        playlist_data["Episodes"] = episodes
+    except:
+        pass
 
     return Response({"PlaylistData": playlist_data})
 
@@ -149,7 +155,9 @@ def play_favourite_episodes(request):
         favourite_data = "No Season Data Found"
         episodes = "No Episode Data Found"
 
-
-    favourite_data["Episodes"] = episodes
+    try:
+        favourite_data["Episodes"] = episodes
+    except:
+        pass
         
     return Response({"FavouriteData": favourite_data})
