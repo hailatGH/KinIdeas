@@ -16,9 +16,17 @@ SECRET_KEY = env("SECRET_KEY")
 
 # If defined, add service URL to Django security settings
 MUSIC_SERVICE_URL = env("MUSIC_SERVICE_URL", default=None)
+MUSIC_SERVICE_URL2 = env("MUSIC_SERVICE_URL2", default=None)
+
 if MUSIC_SERVICE_URL:
     ALLOWED_HOSTS = [urlparse(MUSIC_SERVICE_URL).netloc]
     CSRF_TRUSTED_ORIGINS = [MUSIC_SERVICE_URL]
+else:
+    ALLOWED_HOSTS = ["*"]
+
+if MUSIC_SERVICE_URL2:
+    ALLOWED_HOSTS = [urlparse(MUSIC_SERVICE_URL2).netloc]
+    CSRF_TRUSTED_ORIGINS = [MUSIC_SERVICE_URL2]
 else:
     ALLOWED_HOSTS = ["*"]
 
