@@ -17,7 +17,7 @@ def play_single_station(request):
     for variable in ["station_id", "station_name", "station_frequency", "station_url", "station_cover"]:
         station_data[variable] = eval(variable)
 
-    return Response({"Track Data": station_data})
+    return Response({"StationData": station_data})
 
 @api_view(['GET'])
 def play_favourite_stations(request):
@@ -45,4 +45,4 @@ def play_favourite_stations(request):
 
     favourite_data["Stations"] = stations
         
-    return Response({"Favourite Data": favourite_data})
+    return Response({"FavouriteData": favourite_data})
