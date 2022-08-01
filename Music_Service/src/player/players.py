@@ -26,7 +26,7 @@ def play_single_track(request):
         "album_title", "album_cover", "genre_id", "genre_title", "lyrics_id", "lyrics_detail"]:
         track_data[variable] = eval(variable)
 
-    return Response({"Track Data": track_data})
+    return Response({"TrackData": track_data})
 
 @api_view(['GET'])
 def play_album_tracks(request):
@@ -60,11 +60,11 @@ def play_album_tracks(request):
         for variable in ["track_id", "track_name", "track_file", "genre_id", "genre_name", "lyrics_id", "lyrics_detail"]:
             track_data[variable] = eval(variable)
 
-        tracks["Track: " + str(i)] = track_data
+        tracks["Track_" + str(i)] = track_data
 
     album_data["Tracks"] = tracks
 
-    return Response({"Album Data": album_data})
+    return Response({"AlbumData": album_data})
 
 @api_view(['GET'])
 def play_playlist_tracks(request):
@@ -103,11 +103,11 @@ def play_playlist_tracks(request):
             "album_title", "album_cover", "genre_id", "genre_title", "lyrics_id", "lyrics_detail"]:
             track_data[variable] = eval(variable)
         
-        tracks["Track: " + str(i)] = track_data
+        tracks["Track_" + str(i)] = track_data
 
     playlist_data["Tracks"] = tracks
 
-    return Response({"Playlist Data": playlist_data})
+    return Response({"PlaylistData": playlist_data})
 
 @api_view(['GET'])
 def play_favourite_tracks(request):
@@ -140,8 +140,8 @@ def play_favourite_tracks(request):
             "album_title", "album_cover", "genre_id", "genre_title", "lyrics_id", "lyrics_detail"]:
             track_data[variable] = eval(variable)
         
-        tracks["Track: " + str(i)] = track_data
+        tracks["Track_" + str(i)] = track_data
 
     favourite_data["Tracks"] = tracks
         
-    return Response({"Favourite Data": favourite_data})
+    return Response({"FavouriteData": favourite_data})
