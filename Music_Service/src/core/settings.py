@@ -15,7 +15,7 @@ env.read_env(io.StringIO(os.environ.get("MUSIC_SERVICE_SETTINGS", None)))
 SECRET_KEY = env("SECRET_KEY")
 
 # If defined, add service URL to Django security settings
-MUSIC_SERVICE_URL = env("MUSIC_SERVICE_URL2", default=None)
+MUSIC_SERVICE_URL = env("MUSIC_SERVICE_URL", default=None)
 
 if MUSIC_SERVICE_URL:
     ALLOWED_HOSTS = [urlparse(MUSIC_SERVICE_URL).netloc]
