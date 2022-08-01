@@ -26,7 +26,7 @@ def play_single_episode(request):
             episode_data[variable] = eval(variable)
 
     except:
-        episode_data = None
+        episode_data = "No Episode Data Found"
 
     return Response({"EpisodeData": episode_data})
 
@@ -64,8 +64,8 @@ def play_season_episodes(request):
             episodes["Episode_" + str(i)] = episode_data
 
     except:
-        season_data = None
-        episodes = None
+        season_data = "No Season Data Found"
+        episodes = "No Episode Data Found"
 
     season_data["Episodes"] = episodes
 
@@ -108,8 +108,8 @@ def play_playlist_episodes(request):
             episodes["Episode_" + str(i)] = episode_data
 
     except:
-        playlist_data = None
-        episodes = None
+        playlist_data = "No Season Data Found"
+        episodes = "No Episode Data Found"
 
     playlist_data["Episodes"] = episodes
 
@@ -146,8 +146,8 @@ def play_favourite_episodes(request):
             episodes["Episode_" + str(i)] = episode_data
 
     except:
-        favourite_data = None
-        episodes = None
+        favourite_data = "No Season Data Found"
+        episodes = "No Episode Data Found"
 
 
     favourite_data["Episodes"] = episodes

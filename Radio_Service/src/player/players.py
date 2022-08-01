@@ -20,7 +20,7 @@ def play_single_station(request):
             station_data[variable] = eval(variable)
 
     except:
-        station_data = None
+        station_data = "No Station Data Found"
 
     return Response({"StationData": station_data})
 
@@ -50,8 +50,8 @@ def play_favourite_stations(request):
             stations["Station: " + str(i)] = station_data
     
     except:
-        favourite_data = None
-        stations = None
+        favourite_data = "No Favourite Data Found"
+        stations = "No Station Data Found"
 
     favourite_data["Stations"] = stations
         

@@ -25,15 +25,15 @@ def play_single_track(request):
             lyrics_id = MusicLyrics.objects.filter(track_id=track_id).values('id')[0]['id']
             lyrics_detail = MusicLyrics.objects.filter(track_id=track_id).values('lyrics_detail')[0]['lyrics_detail']
         except:
-            lyrics_id = None
-            lyrics_detail = None
+            lyrics_id = "No Lyrics ID Found"
+            lyrics_detail = "No Lyrics Detail Found"
         
         for variable in ["track_id", "track_name", "track_file", "artist_id", "artist_name", "album_id",\
             "album_title", "album_cover", "genre_id", "genre_title", "lyrics_id", "lyrics_detail"]:
             track_data[variable] = eval(variable)
 
     except:
-        track_data = None
+        track_data = "No Track Data Found"
 
     return Response({"TrackData": track_data})
 
@@ -68,8 +68,8 @@ def play_album_tracks(request):
                 lyrics_id = MusicLyrics.objects.filter(track_id=track_id).values('id')[0]['id']
                 lyrics_detail = MusicLyrics.objects.filter(track_id=track_id).values('lyrics_detail')[0]['lyrics_detail']
             except:
-                lyrics_id = None
-                lyrics_detail = None
+                lyrics_id = "No Lyrics ID Found"
+                lyrics_detail = "No Lyrics Detail Found"
 
             for variable in ["track_id", "track_name", "track_file", "genre_id", "genre_name", "lyrics_id", "lyrics_detail"]:
                 track_data[variable] = eval(variable)
@@ -77,8 +77,8 @@ def play_album_tracks(request):
             tracks["Track_" + str(i)] = track_data
 
     except:
-        album_data = None
-        tracks = None
+        album_data = "No Album Data Found"
+        tracks = "No Track Data Found"
 
     album_data["Tracks"] = tracks
 
@@ -119,8 +119,8 @@ def play_playlist_tracks(request):
                 lyrics_id = MusicLyrics.objects.filter(track_id=track_id).values('id')[0]['id']
                 lyrics_detail = MusicLyrics.objects.filter(track_id=track_id).values('lyrics_detail')[0]['lyrics_detail']
             except:
-                lyrics_id = None
-                lyrics_detail = None
+                lyrics_id = "No Lyrics ID Found"
+                lyrics_detail = "No Lyrics Detail Found"
 
             for variable in ["track_id", "track_name", "track_file", "artist_id", "artist_name", "album_id",\
                 "album_title", "album_cover", "genre_id", "genre_title", "lyrics_id", "lyrics_detail"]:
@@ -129,8 +129,8 @@ def play_playlist_tracks(request):
             tracks["Track_" + str(i)] = track_data
 
     except:
-        playlist_data = None
-        tracks = None
+        playlist_data = "No Playlist Data Found"
+        tracks = "No Track Data Found"
 
     playlist_data["Tracks"] = tracks
 
@@ -165,8 +165,8 @@ def play_favourite_tracks(request):
                 lyrics_id = MusicLyrics.objects.filter(track_id=track_id).values('id')[0]['id']
                 lyrics_detail = MusicLyrics.objects.filter(track_id=track_id).values('lyrics_detail')[0]['lyrics_detail']
             except:
-                lyrics_id = None
-                lyrics_detail = None
+                lyrics_id = "No Lyrics ID Found"
+                lyrics_detail = "No Lyrics Detail Found"
 
             for variable in ["track_id", "track_name", "track_file", "artist_id", "artist_name", "album_id",\
                 "album_title", "album_cover", "genre_id", "genre_title", "lyrics_id", "lyrics_detail"]:
@@ -175,8 +175,8 @@ def play_favourite_tracks(request):
             tracks["Track_" + str(i)] = track_data
 
     except:
-        favourite_data = None
-        tracks = None
+        favourite_data = "No Favourite Data Found"
+        tracks = "No Track Data Found"
 
     favourite_data["Tracks"] = tracks
         
